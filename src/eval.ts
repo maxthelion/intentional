@@ -11,7 +11,7 @@
  *   └── [always]                             → idle
  */
 
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { findPendingSessions, getRollingWindow } from "./inbox";
 import { countStagingProposals } from "./staging";
@@ -56,6 +56,9 @@ async function evaluate(): Promise<NextAction> {
 
 async function main() {
   const action = await evaluate();
+  await mkdir(join(process.cwd(), "state", "staging", "dry-run"), { recursive: true });
+  await mkdir(join(process.cwd(), "state", "staging", "pending"), { recursive: true });
+  await mkdir(join(process.cwd(), "state", "staging", "done"), { recursive: true });
   await writeFile(NEXT_ACTION_PATH, JSON.stringify(action, null, 2));
 
   // Human-readable summary to stdout
