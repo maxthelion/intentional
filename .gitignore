@@ -1,8 +1,7 @@
 # dependencies (bun install)
 node_modules
 
-# derived triage output — re-generated on each run
-state/staging/dry-run/
+# staging areas — gitignored (proposals committed on agent branch instead)
 state/staging/pending/
 state/staging/done/
 state/next-action.json
