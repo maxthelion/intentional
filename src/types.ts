@@ -1,0 +1,56 @@
+// A single message pair from the inbox JSONL
+export interface MessagePair {
+  session_id: string;
+  repo: string;
+  seq: number;
+  timestamp: string;
+  agent: string;
+  user: string;
+  processed: boolean;
+}
+
+// A session file with its path and pairs
+export interface Session {
+  path: string;
+  session_id: string;
+  pairs: MessagePair[];
+}
+
+// Output of the deterministic tree evaluator
+export type NextAction =
+  | {
+      type: "classify";
+      session_id: string;
+      session_path: string;
+      seq: number;
+      pair: MessagePair;
+      rolling_window: MessagePair[]; // prior N pairs for correction/ratification context
+    }
+  | {
+      type: "review-staging";
+      proposal_count: number;
+      staging_path: string;
+    }
+  | {
+      type: "idle";
+      reason: string;
+    };
+
+// A write proposal produced by the classifier agent
+export interface WriteProposal {
+  id: string; // {session_id}-{seq}-{index}
+  type: "decision" | "ratification" | "rejection" | "open-question" | "clarification";
+  project: string;
+  section: string; // target Octowiki section
+  content: string;
+  confidence: number; // 0–1
+  provenance: {
+    session_id: string;
+    seq: number;
+    raw_agent: string;
+    raw_user: string;
+    what_was_ratified?: string; // for ratification type only
+  };
+  dry_run: boolean;
+  created_at: string;
+}

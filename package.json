@@ -1,0 +1,17 @@
+{
+  "name": "intentional",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "eval": "bun src/eval.ts",
+    "classify-prompt": "bun src/classify-prompt.ts",
+    "mark-processed": "bun src/mark-processed.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
