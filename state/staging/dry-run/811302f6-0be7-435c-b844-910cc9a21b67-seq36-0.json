@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "The eval script should automatically migrate flat JSONL files from .pi/inbox/ root into .pi/inbox/pending/ before scanning. Pi drops files in the flat inbox root; eval picks them up and moves them to pending/. No manual copying needed.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 36,
+    "raw_agent": "eval should do it automatically. Move any flat JSONL files from .pi/inbox/ into pending/ before scanning. Now bun run eval handles it automatically.",
+    "raw_user": "[sandbox output showing idle due to empty pending/]"
+  }
+}

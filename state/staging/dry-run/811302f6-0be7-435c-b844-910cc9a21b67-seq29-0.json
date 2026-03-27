@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "intent-pipeline",
+  "content": "A second loop exists beyond triage: wiki → code. Two detection cases:\n1. New invariant not yet implemented — the spec has moved ahead of the code. The delta is work.\n2. Built but not tested — code exists but no characterisation test freezes its behaviour. Agents can autonomously write these tests because the invariant tells them what correct looks like.\n\nPrecondition: invariants in the wiki must be machine-readable (not just prose). The behaviour tree for this loop sits above the triage loop:\nSelector\n├── [inbox pending?] → triage loop\n├── [unimplemented invariants?] → write work item\n├── [untested decisions?] → write characterisation test\n└── [idle]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 29,
+    "raw_agent": "This is the second loop in the system — the first loop is conversation → wiki, this is wiki → code. An agent looking at the wiki and the codebase can detect: 'this invariant is declared but I can't find evidence it's satisfied.' That's a work item.",
+    "raw_user": "I'm thinking about what happens when a new invariant enters the spec. It will be implemented or not. There is potentially a delta that is the work that needs doing. Also, If I ask an agent to build something, but I don't add tests, my eventual desire is that this situation is rectified by autonomous agents writing characterisation tests."
+  }
+}

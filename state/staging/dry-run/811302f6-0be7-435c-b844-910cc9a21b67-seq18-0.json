@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The agent should NOT traverse the tree itself. Tree traversal is deterministic — a script (the 'eval' script) runs before the agent, evaluates the tree mechanically (scanning pending/, finding oldest unprocessed pair, checking Octowiki readability, checking staging proposals), and outputs a structured 'next action' JSON. The agent never decides what to work on. The script decides. The agent executes as a pure function.\n\nThe agent wakes up, reads the next-action file, gets a fully structured prompt (Octowiki context, rolling window of prior pairs, the pair to classify), produces one output (a proposal or a discard), commits it, exits.\n\nKey artifacts:\n- state/next-action.json — which pair, which session, loaded context paths\n- staging/dry-run/ — proposals produced but not applied (dry-run mode)\n- staging/pending/ — proposals approved for auto-commit\n- SCHEDULED_PROMPT.md — the agent's entry point\n- eval script — deterministic tree evaluator (no LLM, just filesystem checks)\n\nBuild order: deterministic evaluator first (no LLM), then the prompt around it.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "It shouldn't traverse the tree itself — reasoning about what to do is where agents go wrong. The traversal should be deterministic. The agent gets handed a specific task and executes it as a pure function.",
+    "raw_user": "I think we should build some of the ground work for running the behaviour tree as a dry run. How do we envisage that working?"
+  }
+}

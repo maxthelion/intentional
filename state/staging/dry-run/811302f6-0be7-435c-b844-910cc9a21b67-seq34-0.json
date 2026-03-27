@@ -1,0 +1,1 @@
+{ "type": "discard", "reason": "Bug fix — eval script needed to create state directories on first run. Procedural implementation detail, not a design decision." }

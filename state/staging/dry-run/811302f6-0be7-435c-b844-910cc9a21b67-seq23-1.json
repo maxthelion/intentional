@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "overview",
+  "content": "The system is self-hosting: the first dry-run processed pairs that were created during the same conversation where the system was designed. Pairs 13-18 (where the evaluator was designed and built) were processed by the system that those same pairs describe. This validates the self-hosting property of the intent pipeline.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 23,
+    "raw_agent": "The session grew. The conversation continued while we were building — pairs 13-18 are the pairs where we designed and built the evaluator itself. The system ran on pairs that didn't exist when the system was designed. That's the self-hosting property working as intended.",
+    "raw_user": "[sandbox output showing all 18 pairs triaged]"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "open-question",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Known gap in pair-level analysis: indirect influence is not captured. For example, a blog post URL shared in one pair (correctly discarded at pair level as 'no decision in that exchange') may shape decisions made in later pairs. The content influences downstream classification but the pair itself has no signal. Worth noting as a limitation of the pair-as-unit-of-analysis approach.",
+  "confidence": 0.75,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 23,
+    "raw_agent": "Seq 8 is the most interesting discard: the blog reading pair got correctly discarded at the pair level, but the blog content did shape decisions made in later pairs. That's a real limitation of pair-level analysis — indirect influence doesn't get captured.",
+    "raw_user": "[sandbox output of first dry-run with 18 pairs processed]"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The retrospective triage analysis of the conversation was confirmed as reasonable. The agent's classification of what would be written, discarded, or flagged as open questions aligns with user expectations.",
+  "confidence": 0.75,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 13,
+    "raw_agent": "Looking at the 12 pairs, here's what the triage system would have extracted: [detailed analysis of what to write, discard, flag]",
+    "raw_user": "I think it's fine.",
+    "what_was_ratified": "The agent's retrospective triage classification of pairs 1-12 (what to write to Octowiki, what to discard, what to flag as open questions)"
+  }
+}

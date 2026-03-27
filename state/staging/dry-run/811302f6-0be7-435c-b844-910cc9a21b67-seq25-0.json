@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The review-staging step must apply proposals in chronological order so that later proposals (e.g., a rejection at seq=17) override earlier proposals (e.g., a decision at seq=5) rather than both being applied blindly. Raw proposals correctly record what was said at the time — they should not be retroactively edited. The ordering is what ensures consistency.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 25,
+    "raw_agent": "seq5-1 still has CodeHealth in it — the agent correctly recorded what was said at the time. The rejection in seq17 is a separate proposal. The review-staging step needs to be smart about applying proposals in order, so seq17 overrides seq5-1 when writing to the wiki rather than both being applied blindly.",
+    "raw_user": "It's kind of useful to be able to look at the output though. We can always roll back the commit"
+  }
+}

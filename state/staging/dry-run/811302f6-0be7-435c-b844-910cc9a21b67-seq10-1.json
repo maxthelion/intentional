@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Invariants of the behaviour tree:\n- A pair is processed exactly once\n- A failed classification never writes anything\n- The tree never mutates Octowiki directly — it proposes a write, a separate write node executes it, so failures at the write step don't corrupt the classification result\n- Every decision to write must carry provenance — session ID, timestamp, the raw pair that triggered it",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "Before I start building — what's the stack?",
+    "raw_user": "Invariants: A pair is processed exactly once, A failed classification never writes anything, The tree never mutates Octowiki directly..."
+  }
+}

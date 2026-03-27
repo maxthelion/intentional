@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Intentional stays narrowly focused: conversation → wiki (triage, resolution, application). It does not check whether invariants are met in a project — that's the job of a different component. Tool boundaries:\n- intentional: conversation → wiki\n- octowiki invariants: wiki + codebase → delta report\n- a separate agent: delta report → work items → characterisation tests\n\nIntentional doesn't need to know anything about the codebase. It just needs to produce a good wiki.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 30,
+    "raw_agent": "Intentional stays focused on the one hard problem: reliably distilling conversational signal into structured wiki entries.",
+    "raw_user": "my intention is to keep this tool quite narrowly focused. It might not check whether invariants are met in a project. That might be the job for a different component"
+  }
+}

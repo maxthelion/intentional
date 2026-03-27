@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Context loading: load once per session, not per pair. If pair N triggers a write to Octowiki, pair N+1 in the same session doesn't need to re-litigate — they're in the same conversation, context is consistent. Reload on the next session.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 11,
+    "raw_agent": "On the context loading question — load once per session, not per pair.",
+    "raw_user": "Yes, the shoemakers project was more for reference"
+  }
+}

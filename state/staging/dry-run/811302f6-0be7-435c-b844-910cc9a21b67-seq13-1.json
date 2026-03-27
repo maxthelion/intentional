@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The tree must handle inverted pairs where the user turn is the substantive one and the agent turn is just acknowledgement (e.g. a 'spec drop' where user provides a complete design document). The current design assumes agent proposes / user confirms, but this pattern also occurs in reverse. A single user turn can contain multiple distinct decisions — the tree needs to handle multi-signal pairs.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 13,
+    "raw_agent": "seq 10 — a single user turn containing a complete design document. That's not really a 'pair' in the ratification sense, it's a spec drop. The tree needs to handle the case where the user turn is the substantive one and the agent turn is just acknowledgement.",
+    "raw_user": "I think it's fine."
+  }
+}

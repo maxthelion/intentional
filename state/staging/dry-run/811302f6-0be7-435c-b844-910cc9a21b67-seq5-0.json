@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Conversations are the source of truth for intent. Everything else is derived. The system exists because intent is generated continuously through conversation but never persists — it evaporates between sessions. The goal is to close that loop: capture raw signal, distil it into structured intent, and maintain a living record that future agents can reason against.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "This reframes everything. The inbox isn't a messaging utility — it's the mouth of the pipeline.",
+    "raw_user": "Conversations are the source of truth for intent. Everything else is derived."
+  }
+}

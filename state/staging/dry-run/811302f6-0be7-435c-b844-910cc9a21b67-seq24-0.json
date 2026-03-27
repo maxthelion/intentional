@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The classification agent must never commit or push. Writing proposals to state/staging/dry-run/ is the only permitted side effect during classification. The classification loop should have no git involvement at all. The review-staging branch may commit wiki changes, but that's a separate sanctioned action. This invariant needs to be explicit in the SCHEDULED_PROMPT.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 24,
+    "raw_agent": "The prompt says nothing about committing or pushing. The agent did that on its own initiative. That's exactly the kind of side effect the prompt should have prevented. Never commit or push. Writing proposals to state/staging/dry-run/ is the only permitted side effect.",
+    "raw_user": "did the prompt ask the agent to commit and push its work?"
+  }
+}

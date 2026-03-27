@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "Inbox uses a pending/done directory structure: new messages land in .pi/inbox/pending/, and the processor moves them to .pi/inbox/done/ after handling. Directory location serves as processing status — no 'processed' flag needed. Files are named {timestamp}-{uuid}.jsonl for natural time ordering. Processing is atomic via mv.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 4,
+    "raw_agent": "pending/ ← new messages land here, done/ ← processor moves them here after handling. One file per message, named {timestamp}-{uuid}.jsonl. The processor can list pending/, pick up a file, process it, mv pending/{file} done/{file} — atomic, no rewriting, no flag scanning.",
+    "raw_user": "I think pending and done might be best",
+    "what_was_ratified": "pending/done directory structure for inbox with atomic mv-based processing"
+  }
+}

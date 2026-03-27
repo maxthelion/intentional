@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Write proposals are structured JSON objects (not raw text) with type, project, section, content, confidence, and provenance fields. Proposals sit in a staging area before being committed. Above a confidence threshold they auto-commit; below it they go to a triage queue for human review. This gives a dial between fully automatic and fully supervised that can be tuned as trust in the classifier builds.\n\nThe tree should be data-driven not code-driven: signal types, confidence thresholds, and section mappings live in config, not in the tree implementation. Adding a new signal type is a config change, not a code change.\n\nSpecialist loading step is critical: a generalist asking 'is this a decision?' has too many false positives. A specialist loaded with current Octowiki state can ask 'does this change what we already know?' — much lower false positive rate because most conversation confirms existing understanding rather than changing it.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "This is a well-resolved design.",
+    "raw_user": "The write proposal should be a structured object, not raw text... This proposal sits in a staging area before being committed. Above a confidence threshold it auto-commits."
+  }
+}

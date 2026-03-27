@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "Confirmed: one file per conversation/session (not per message) because the conversation is the atomic unit of truth. Raw capture must be lossless and immutable — done/ files are never modified. The done/ move is a handoff signal to triage, not a 'finished' marker.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "One file per conversation/session (not per message) — because the conversation is the atomic unit of truth. Raw capture must be lossless and immutable — done/ files should never be modified, only the derived artifacts change.",
+    "raw_user": "Conversations are the source of truth for intent. Everything else is derived.",
+    "what_was_ratified": "One file per session, immutable archive in done/, conversation as the atomic unit of truth"
+  }
+}

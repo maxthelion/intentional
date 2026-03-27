@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The behaviour tree is a structured decision process that runs to completion on a unit of work (a message pair) and either produces an output or doesn't. Not a game AI tree — closer to the robotics application. The tree metaphor earns its place because the decision logic is genuinely hierarchical and failure/success propagation gives clean short-circuit behaviour.\n\nInputs: a message pair (agent turn, user turn, repo path, timestamp, session context)\nOutputs: one of — write to Octowiki, append to questions log, append to rejected directions, discard\n\nTree structure:\nRoot (Sequence)\n├── LoadProjectContext\n│   ├── ReadOctowiki(relevant sections)\n│   └── ReadRecentDecisions(last N entries)\n├── PairAnalysis (Sequence)\n│   ├── DetectRatification\n│   ├── DetectDecision\n│   ├── DetectRejection\n│   ├── DetectOpenQuestion\n│   └── DetectClarification\n├── Selector: Act on strongest signal\n│   ├── [Decision or Ratification] → ProposeWikiWrite\n│   ├── [Rejection] → ProposeWikiWrite(rejected_directions)\n│   ├── [OpenQuestion] → AppendToQuestions\n│   ├── [Clarification] → UpdateProjectSummary\n│   └── [no signal] → Discard\n└── MarkProcessed",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "The root is a Sequence, not a Selector... A failure at LoadContext should re-queue, not skip to the next pair.",
+    "raw_user": "The behaviour tree is the most architecturally interesting part... The tree structure: Root (Sequence) ├── LoadProjectContext..."
+  }
+}

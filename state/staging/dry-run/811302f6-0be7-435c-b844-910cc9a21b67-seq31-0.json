@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Each triage run should start with a fresh wiki (delete existing manually-written pages). The agent prompt should include reset-wiki as a setup step. Also, when external links (URLs) appear in conversation pairs, the agent should fetch and read them to consider their relevance as context for classification. Blog posts and documentation shared in conversation often directly inform decisions — they should not be discarded just because the pair containing the URL has no direct decision signal.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 31,
+    "raw_agent": "The URL-fetching instruction means the blog posts in seq 6 should no longer be discarded — the agent will curl them and use them as context.",
+    "raw_user": "Let's maybe change the agent prompt to write to a brand new wiki. Maybe delete what's already there. Possibly also make a note that when external links are mentioned, they should be followed and considered for relevancy."
+  }
+}

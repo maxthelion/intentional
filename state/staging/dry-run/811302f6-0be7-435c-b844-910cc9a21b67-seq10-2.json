@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Separation of detection from action: condition nodes only classify, they never write. This enables dry-run mode against historical inbox data to see what the tree would have done without touching Octowiki. This is how classifiers are tuned: run against characterisation dataset, compare proposed writes against desired outcomes, adjust thresholds.\n\nRatification is structurally different from decision detection: a decision can appear in a single agent turn, but ratification requires the pair — the agent turn contains the substance, the user turn is the signal. For ratification, the classifier extracts what the agent proposed and checks the user turn for confirmation. Output records what the agent proposed, not what the user said.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "The root is a Sequence, not a Selector.",
+    "raw_user": "Separation of detection from action. The condition nodes only classify — they never write... Ratification is structurally different from decision detection."
+  }
+}

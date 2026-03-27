@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The pending/done inbox split serves as the trigger mechanism for the behaviour tree. The agent checks if pending/ has files — that branch fires the triage handler. Inbox sits in the 'urgent zone' at the top of the behaviour tree: [inbox messages?] → Handle inbox (triage → Octowiki). The intentional repo maps to the blog post architecture: Inbox=lossless capture (pending/done), Triage=signal extraction into wiki, Octowiki=fractal markdown wiki (authoritative spec), Characterisation tests=derived from wiki invariants, CodeHealth/Octoclean=continuous audit of code vs wiki.",
+  "confidence": 0.75,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 8,
+    "raw_agent": "The pending/done split isn't just a file organisation choice — it's the trigger mechanism for the behaviour tree. The agent checks pending/ exists and has files → that branch fires.",
+    "raw_user": "what about curl?"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "open-question",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "Unresolved design questions: (1) One message per file vs one session per file — per-message is more atomic, per-session provides full conversation context. (2) Should done/ be kept indefinitely or cleaned up by age? (3) Is the processor an internal component or an external system?",
+  "confidence": 0.75,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 4,
+    "raw_agent": "One message per file, or one conversation/session per file? Should done/ be kept indefinitely, or cleaned up after some time? Is the processor reading these files something you're building, or is it an external system?",
+    "raw_user": "I think pending and done might be best"
+  }
+}

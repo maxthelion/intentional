@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Octowiki already exists as a tool. The shoe-makers repo (../shoemakers or shoe-makers) has a working behaviour tree implementation (src/tree/default-tree.ts) that includes inbox handling. The intentional project adapts these patterns for a different purpose: conversations as intent signal rather than task instructions.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 9,
+    "raw_agent": "The behaviour tree is fully implemented — src/tree/default-tree.ts has [inbox messages?] → inbox already wired up.",
+    "raw_user": "we have octowiki and we have a model for behaviour tree in my repo ../shoemakers (maybe hyphenated)"
+  }
+}

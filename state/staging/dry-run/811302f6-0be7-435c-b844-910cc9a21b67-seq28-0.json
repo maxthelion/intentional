@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "No more manual wiki edits. All wiki updates must flow through the pipeline: inbox → triage → resolution → wiki. Manually editing the wiki bypasses the loop and loses the provenance trail. Any architectural decision made in conversation should flow through the pipeline, not be directly applied by hand. The wiki reflects what the pipeline has distilled — nothing more.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 28,
+    "raw_agent": "If we keep manually editing the wiki we're bypassing the loop and losing the provenance trail. Any architectural decision made in conversation should flow: inbox → triage → resolution → wiki. Not: conversation → human edits wiki directly.",
+    "raw_user": "Let's stop updating the wiki ourselves."
+  }
+}

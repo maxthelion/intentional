@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "intent-pipeline",
+  "content": "CodeHealth is a separate project mainly for signalling when refactoring is necessary. It is NOT a stage in the intentional pipeline. The intentional pipeline ends at characterisation tests. The traceability chain is: conversations → logging → triage → Octowiki → characterisation tests. CodeHealth was incorrectly included in the pipeline description and has been removed.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 17,
+    "raw_agent": "CodeHealth is removed from the wiki — the pipeline now ends at characterisation tests.",
+    "raw_user": "I don't think codehealth is being correctly referred to in the wiki. It is a project, but it's mainly for signalling when refactoring is necessary. Can you edit that out"
+  }
+}

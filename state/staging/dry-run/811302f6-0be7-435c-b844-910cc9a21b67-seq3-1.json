@@ -1,0 +1,13 @@
+{
+  "type": "open-question",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "Performance concern: current one-JSONL-file-per-session structure requires scanning all session files and filtering by processed flag. Alternatives under consideration: (1) one file per message with atomic pickup/delete, (2) separate pending/ and done/ directories with file moves on completion, (3) append-only log with offset tracking. No direction chosen yet.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 3,
+    "raw_agent": "Some alternative approaches that would scale better: One file per message, Separate pending/ and done/ directories, Append-only log + offset tracking. Which direction were you thinking of taking this?",
+    "raw_user": "If they are being processed by another system, isn't that going to cause a performance degradation?"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "PairAnalysis needs a rolling window of recent pairs, not just the current pair. This is required to handle corrections — where a user turn corrects something the agent claimed in a previous turn. Three distinct classifier outcomes exist beyond the basic signal types:\n1. False ratification — agent presents an assumption as a confirmed decision (must be caught)\n2. Correction — user pushes back on agent's prior framing (meta-signal about epistemic status of a prior turn)\n3. Genuine non-decision — 'I don't care' means the topic isn't worth recording even though the exchange looked like it might resolve something\n\n'This wasn't actually decided' is a distinct case from 'we decided not to do this'.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 12,
+    "raw_agent": "The tree can't just look at individual pairs in isolation. To correctly classify the correction, it needs to know what the agent claimed in the previous turn. That's a case for carrying a small rolling window of recent pairs into PairAnalysis.",
+    "raw_user": "I don't care, but I'm interested in these quirks of conversation"
+  }
+}

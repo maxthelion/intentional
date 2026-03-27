@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "Key difference between shoe-makers inbox and intentional inbox: shoe-makers treats inbox messages as human-written instructions (agent acts then deletes); intentional treats inbox as raw conversational signal that gets triaged and distilled to Octowiki, with immutable archive in done/. shoe-makers has no triage concept. Intentional needs a triage skill that doesn't exist in shoe-makers yet.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 9,
+    "raw_agent": "The inbox prompt just tells the agent to read, act, and delete. There's no triage concept — it treats inbox messages as instructions, not as conversational signal to distil.",
+    "raw_user": "we have octowiki and we have a model for behaviour tree in my repo ../shoemakers"
+  }
+}

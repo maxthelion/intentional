@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "intent-pipeline",
+  "content": "The intent pipeline has five stages, each a transformation:\n1. **Logging** — lossless capture of conversations, no judgement, just preservation\n2. **Triage** — signal extraction: decisions, rejections, open questions separated from noise\n3. **Octowiki** — consolidation: the current authoritative statement of what the system is and why\n4. **Characterisation tests** — the executable shadow of Octowiki: what 'correct' looks like in runnable form\n5. **CodeHealth** — continuous audit: does the codebase still reflect the intent, or has it drifted?\n\nThe pipeline flows: Conversations generate signal → logging captures it raw → triage distils it → Octowiki holds the distilled intent → characterisation tests freeze the implied behaviour → CodeHealth verifies the code respects it.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "The design decisions flow directly from this... What this implies about the whole structure...",
+    "raw_user": "The pipeline is: Conversations generate signal → logging captures it raw → triage distils it → Octowiki holds the distilled intent → characterisation tests freeze the implied behaviour → CodeHealth verifies the code respects it"
+  }
+}

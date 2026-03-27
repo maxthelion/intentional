@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The triage/agent orchestration model is based on behaviour trees (from game AI). Key concepts from the user's blog post:\n- Agent runs on a loop; first prompt is to run setup, read inbox and next action (deterministic instructions at every pass)\n- Two zones: urgent/reactive (failing tests, critiques, inbox messages) at the top, proactive (explore, prioritise, execute) at the bottom — Maslow's hierarchy analogy\n- Separation of stages prevents agents skipping steps in the name of efficiency\n- Agents are envisioned as pure functions: take instructions, make modifications, no side effects\n- Explore phase uses deterministic inputs: code health checks (Octoclean), invariant checking (spec vs implementation vs tests), inspiration\n- Tree structure: Selector with serial evaluation — tests failing → fix, unresolved critiques → fix, unreviewed commits → review, inbox → handle, work-item exists → execute, candidates exist → prioritise, etc.\n- Runs in a daily branch (designed for overnight autonomous work), can be deleted if unwanted.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 6,
+    "raw_agent": "I can't browse URLs directly — I don't have internet access. Could you paste the content of the post?",
+    "raw_user": "https://blog.maxthelion.me/blog/behaviour-trees/"
+  }
+}

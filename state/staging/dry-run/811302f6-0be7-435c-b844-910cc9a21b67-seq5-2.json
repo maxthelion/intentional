@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "End-to-end traceability in the NASA sense, but generated automatically rather than maintained by discipline. Any test traces back to a characterisation decision, any characterisation decision to an Octowiki entry, any Octowiki entry to the conversation where it was decided, and that conversation to the raw inbox log. The hardest problem in agentic development isn't generating code — it's ensuring code generated at T+N still respects decisions made at T. This system makes those decisions visible and enforceable across time without manual maintenance.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "The traceability chain you're describing requires stable IDs all the way down.",
+    "raw_user": "The through-line is traceability in the NASA sense, but generated automatically rather than maintained by discipline. You can follow any test back to a characterisation decision, any characterisation decision back to an Octowiki entry, any Octowiki entry back to the conversation where it was decided, and that conversation back to the raw inbox log."
+  }
+}

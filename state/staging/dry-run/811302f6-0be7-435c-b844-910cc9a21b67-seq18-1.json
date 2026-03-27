@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Dry-run mode: the write node is a no-op. Classification runs, proposal is written to staging/dry-run/ instead of being applied to Octowiki. Every proposal can be inspected to see what the tree would have done. When trust is established, flip a flag and proposals go to staging/pending/ for auto-commit.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "Dry-run just means the write node is a no-op. The classification runs, the proposal is written to staging/dry-run/ instead of being applied.",
+    "raw_user": "I think we should build some of the ground work for running the behaviour tree as a dry run."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The full triage loop is confirmed and implemented: eval → classify-prompt → agent classifies → mark-processed → eval again. The agent's entry point is SCHEDULED_PROMPT.md which tells the agent exactly what to do at each step without the agent needing to reason about it. Everything except the classification itself is deterministic.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 20,
+    "raw_agent": "bun run eval → finds next unprocessed pair, bun run classify-prompt → prints structured task prompt, <agent classifies> → writes proposals, bun run mark-processed → flips processed: true",
+    "raw_user": "do it all. Also commit to a new repo.",
+    "what_was_ratified": "The deterministic eval → classify-prompt → agent classifies → mark-processed → eval loop as the triage execution model"
+  }
+}
