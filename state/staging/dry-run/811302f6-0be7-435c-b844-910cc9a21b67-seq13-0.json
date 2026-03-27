@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The tree must handle spec-drop pairs where the user turn contains a complete design document and the agent turn is just acknowledgement. The current design assumes agent proposes / user confirms, but spec drops invert this — the user turn is the substantive one. A single user turn may contain multiple distinct decisions (e.g. seq 10 had ~8 decisions in one message). The tree is designed for one signal per pair detection but must produce multiple proposals from a single pair when warranted.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 13,
+    "raw_agent": "Edge case worth noting: seq 10 — a single user turn containing a complete design document. That's not really a 'pair' in the ratification sense, it's a spec drop. The tree needs to handle the case where the user turn is the substantive one and the agent turn is just acknowledgement.",
+    "raw_user": "I think it's fine. We can also look at .pi/inbox to try to judge what would make sense.",
+    "what_was_ratified": "The triage analysis is correct. The tree needs to handle spec-drop pairs where the user turn is the substantive content and a single pair can produce multiple proposals."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Development approach: bootstrap the wiki manually from this founding conversation first, capturing high-level intent, decisions, and invariants. Then create the behaviour tree loop to process the same session as its first real input, validating that the automated triage produces the same output as the manual extraction.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 15,
+    "raw_agent": "Five pages written: overview.md, intent-pipeline.md, inbox.md, triage-behaviour-tree.md, decisions.md — 8 ADRs with provenance back to session/seq",
+    "raw_user": "We should try to bootstrap it with this conversation. Try to come up with the highlevel intent of the project and then fill in some of the decisions and invariants. Maybe have a go manually, and then we can create a behaviour tree on a loop to see how it handles it"
+  }
+}

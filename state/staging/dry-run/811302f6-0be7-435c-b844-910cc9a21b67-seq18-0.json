@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The agent is a pure function — it never traverses the tree or decides what to work on. A deterministic script (the evaluator) runs before the agent, evaluates the tree mechanically (scan pending/, find oldest unprocessed pair, check Octowiki readability, check staging proposals), and outputs a structured next-action.json. The agent wakes up, reads the next action, gets a fully constructed prompt with Octowiki context and rolling window, classifies one pair, produces one output (proposal or discard), and exits. Dry-run means proposals go to staging/dry-run/ instead of being applied. The evaluator is the first thing to build — no LLM, just filesystem checks producing next-action.json.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "It shouldn't traverse the tree itself — reasoning about what to do is where agents go wrong. The traversal should be deterministic. The agent gets handed a specific task and executes it as a pure function... A script runs before the agent and evaluates the tree mechanically... The agent never decides what to work on. The script decides. The agent executes.",
+    "raw_user": "I think we should build some of the ground work for running the behaviour tree as a dry run. How do we envisage that working? If it were run every hour in a repo with an agent with a prompt, what would they do? Which parts can be made deterministic?"
+  }
+}

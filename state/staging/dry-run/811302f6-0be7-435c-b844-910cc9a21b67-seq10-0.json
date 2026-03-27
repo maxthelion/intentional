@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The triage behaviour tree is not a game AI behaviour tree — it's closer to the robotics application: a structured decision process that runs to completion on a unit of work (a message pair) and either produces an output or doesn't. The tree structure is: Root (Sequence) → LoadProjectContext (ReadOctowiki + ReadRecentDecisions) → PairAnalysis (DetectRatification, DetectDecision, DetectRejection, DetectOpenQuestion, DetectClarification) → Act on signals (ProposeWikiWrite / AppendToQuestions / UpdateProjectSummary / Discard) → MarkProcessed. Invariants: a pair is processed exactly once; a failed classification never writes anything; the tree never mutates Octowiki directly; every write carries provenance.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "This is a well-resolved design. The root is a Sequence, not a Selector. This is subtly different from shoe-makers.",
+    "raw_user": "The behaviour tree is the most architecturally interesting part... It's not a game AI behaviour tree in the traditional sense... Root (Sequence) ├── LoadProjectContext ├── PairAnalysis (Sequence) ├── Selector: Act on strongest signal └── MarkProcessed"
+  }
+}

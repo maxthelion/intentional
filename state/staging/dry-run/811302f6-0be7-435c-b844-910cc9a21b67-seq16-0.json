@@ -1,0 +1,10 @@
+{
+  "type": "discard",
+  "reason": "Tooling logistics — user asks if octowiki can serve on a different port. No architectural decisions, ratifications, or clarifications.",
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 16,
+    "raw_agent": "Yes, --port N. What port do you want?",
+    "raw_user": "can it be served on a different port?"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "discard",
+  "reason": "Tooling logistics — user asks if they can grant URL-reading permission, agent explains limitations and suggests alternatives (paste text, save as file, summarise). No architectural decisions, ratifications, rejections, or clarifications about the intentional system.",
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 7,
+    "raw_agent": "Unfortunately no — I don't have a web browsing tool available in this environment",
+    "raw_user": "can I give you permission to read them?"
+  }
+}

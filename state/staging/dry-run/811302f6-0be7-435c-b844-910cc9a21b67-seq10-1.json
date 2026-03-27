@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Detection is separated from action: condition nodes only classify, never write. This enables dry-run mode against historical inbox data. The specialist loading step is critical — a specialist loaded with current Octowiki state asks 'does this change what we already know?' rather than 'is this a decision?', yielding a much lower false positive rate. Ratification is structurally different from decision detection: ratification requires the pair (agent turn has substance, user turn is signal). Write proposals are structured objects with type, project, section, content, confidence, and provenance. Proposals sit in staging with confidence-gated auto-commit. Signal types, thresholds, and section mappings live in config, not code.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "This is a well-resolved design.",
+    "raw_user": "Separation of detection from action... The specialist loading step is critical... Ratification is structurally different from decision detection... The write proposal should be a structured object... The tree should be data-driven not code-driven."
+  }
+}

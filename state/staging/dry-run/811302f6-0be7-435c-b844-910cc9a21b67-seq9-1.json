@@ -1,0 +1,13 @@
+{
+  "type": "open-question",
+  "project": "intentional",
+  "section": "overview",
+  "content": "What is the relationship between intentional and shoemakers? Is intentional a new project that imports shoemakers as a library (adapting its behaviour tree), or is it standalone borrowing patterns? And should the triage skill be built in intentional first, or added to shoemakers?",
+  "confidence": 0.75,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 9,
+    "raw_agent": "So the question is: is intentional a new project that imports shoe-makers as a library, adapting its behaviour tree — or are we building something standalone that borrows the patterns? And specifically for the inbox: we need a triage skill that doesn't exist in shoe-makers yet. Do you want to build that here in intentional, or add it to shoe-makers first?",
+    "raw_user": "we have octowiki and we have a model for behaviour tree in my repo ../shoemakers (maybe hyphenated)"
+  }
+}

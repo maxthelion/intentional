@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Octowiki and a behaviour tree implementation already exist in the shoemakers repo (../shoemakers or ../shoe-makers). The intentional project builds on these existing components. The shoemakers behaviour tree has inbox handling wired up, but treats inbox messages as instructions to act on and delete — not as conversational signal to triage and distil.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 9,
+    "raw_agent": "The behaviour tree is fully implemented — src/tree/default-tree.ts has [inbox messages?] → inbox already wired up. The inbox currently lives at .shoe-makers/inbox/ and counts .md files (flat, no pending/done).",
+    "raw_user": "we have octowiki and we have a model for behaviour tree in my repo ../shoemakers (maybe hyphenated)"
+  }
+}

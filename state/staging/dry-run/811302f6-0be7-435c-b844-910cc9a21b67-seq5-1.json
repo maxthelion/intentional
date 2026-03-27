@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "intent-pipeline",
+  "content": "The full pipeline is: Conversations generate signal → logging captures it raw → triage distils it → Octowiki holds the distilled intent → characterisation tests freeze the implied behaviour → CodeHealth verifies the code respects it. Each stage is a single-responsibility transformation: Logging is lossless capture (no judgement). Triage is signal extraction (decisions, rejections, open questions separated from noise). Octowiki is consolidation (the current authoritative statement of what the system is and why). Characterisation tests are the executable shadow of Octowiki. CodeHealth is the continuous audit. Traceability is automatic (NASA-style) — any test traces back to a characterisation decision, back to an Octowiki entry, back to the conversation, back to the raw inbox log.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "This reframes everything. The inbox isn't a messaging utility — it's the mouth of the pipeline.",
+    "raw_user": "The pipeline is: Conversations generate signal → logging captures it raw → triage distils it → Octowiki holds the distilled intent → characterisation tests freeze the implied behaviour → CodeHealth verifies the code respects it. Each stage is a transformation: Logging is lossless capture — no judgement, just preservation. Triage is signal extraction — decisions, rejections, open questions separated from noise. Octowiki is consolidation — the current authoritative statement of what the system is and why. Characterisation tests are the executable shadow of Octowiki — what 'correct' looks like in runnable form. CodeHealth is the continuous audit — does the codebase still reflect the intent, or has it drifted? The through-line is traceability in the NASA sense, but generated automatically rather than maintained by discipline."
+  }
+}

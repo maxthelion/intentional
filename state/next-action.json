@@ -1,16 +1,4 @@
 {
-  "type": "classify",
-  "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
-  "session_path": "/Users/maxwilliams/dev/intentional/.pi/inbox/pending/2026-03-27-811302f6-0be7-435c-b844-910cc9a21b67.jsonl",
-  "seq": 1,
-  "pair": {
-    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
-    "repo": "/Users/maxwilliams/dev/intentional",
-    "seq": 1,
-    "timestamp": "2026-03-27T14:46:57.631Z",
-    "agent": "It looks like this is a fresh directory with nothing in it yet — just the `.pi` folder. It seems our previous conversation about the **inbox idea** didn't leave any files behind.\n\nCould you remind me what we were working on? Specifically:\n\n1. **What is the \"inbox idea\"?** — Is this a task/note inbox system, an email inbox concept, or something else?\n2. **What had we built so far?** — Any code, designs, or decisions you remember from last time?\n3. **What's the tech stack?** — e.g. React, Swift, plain JS, etc.\n\nThat'll help me pick up right where we left off!",
-    "user": "we were working on the inbox idea",
-    "processed": false
-  },
-  "rolling_window": []
+  "type": "idle",
+  "reason": "No unprocessed pairs in pending/"
 }

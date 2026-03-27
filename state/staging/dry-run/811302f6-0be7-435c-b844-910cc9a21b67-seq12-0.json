@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The tree needs a rolling window of recent pairs in PairAnalysis, not just the current pair. This is needed to correctly classify corrections ('this wasn't actually decided') as distinct from rejections ('we decided not to do this'). Three distinct outcomes from seemingly simple exchanges: false ratification (agent presents assumption as confirmed), correction (user pushes back on agent's prior framing), genuine non-decision (topic isn't worth recording). The classifier must handle epistemic corrections about the status of prior turns.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 12,
+    "raw_agent": "The tree can't just look at individual pairs in isolation. To correctly classify the correction, it needs to know what the agent claimed in the previous turn. That's a case for carrying a small rolling window of recent pairs into PairAnalysis.",
+    "raw_user": "I don't care, but I'm interested in these quirks of conversation",
+    "what_was_ratified": "Rolling window of recent pairs in PairAnalysis for context. Epistemic corrections are distinct from rejections — 'this wasn't actually decided' differs from 'we decided not to do this'. The classifier needs to handle false ratification, correction, and genuine non-decision as distinct cases."
+  }
+}
