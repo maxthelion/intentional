@@ -1,6 +1,12 @@
 # dependencies (bun install)
 node_modules
 
+# derived triage output — re-generated on each run
+state/staging/dry-run/
+state/staging/pending/
+state/staging/done/
+state/next-action.json
+
 # output
 out
 dist

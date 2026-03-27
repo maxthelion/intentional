@@ -6,7 +6,8 @@
   "scripts": {
     "eval": "bun src/eval.ts",
     "classify-prompt": "bun src/classify-prompt.ts",
-    "mark-processed": "bun src/mark-processed.ts"
+    "mark-processed": "bun src/mark-processed.ts",
+    "reset-session": "bun src/reset-session.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
