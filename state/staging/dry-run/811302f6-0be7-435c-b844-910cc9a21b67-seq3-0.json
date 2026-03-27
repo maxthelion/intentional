@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "The inbox uses JSONL (JSON Lines) format — each message is a separate JSON object on its own line, not one big JSON object. This means appending is O(1) and a processor can stream line-by-line without loading the whole file. There is one JSONL file per session.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 3,
+    "raw_agent": "Looking at the file again — it's actually JSONL (JSON Lines) format, meaning each message is a separate JSON object on its own line, not one big JSON object. Appending is O(1) and a processor can stream line-by-line without loading the whole file.",
+    "raw_user": "Are all the messages in a single JSON object in a single file?"
+  }
+}

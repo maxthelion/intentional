@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Bootstrap approach: first manually populate the wiki from the founding conversation to establish the high-level intent, decisions, and invariants. Then create a behaviour tree on a loop to handle future conversations automatically. The current session is the first real input for the behaviour tree — self-hosting from day one.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 15,
+    "raw_agent": "Five pages written: overview.md, intent-pipeline.md, inbox.md, triage-behaviour-tree.md, decisions.md. Want to spin up the wiki server?",
+    "raw_user": "We should try to bootstrap it with this conversation. Try to come up with the highlevel intent of the project and then fill in some of the decisions and invariants. Maybe have a go manually, and then we can create a behaviour tree on a loop to see how it handles it"
+  }
+}

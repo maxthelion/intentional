@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "The inbox uses a pending/done directory structure: `.pi/inbox/pending/` for new messages and `.pi/inbox/done/` for processed messages. Files are moved atomically from pending to done after processing — no rewriting, no flag scanning. The directory location is the status, so the `processed` field can be dropped.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 4,
+    "raw_agent": "Here's how I'd structure it: .pi/inbox/ pending/ ← new messages land here, done/ ← processor moves them here after handling. The processor can: List pending/, Pick up a file, Process it, mv pending/{file} done/{file} — atomic, no rewriting, no flag scanning.",
+    "raw_user": "I think pending and done might be best",
+    "what_was_ratified": "pending/done directory structure for the inbox with atomic file moves instead of in-file processed flags"
+  }
+}

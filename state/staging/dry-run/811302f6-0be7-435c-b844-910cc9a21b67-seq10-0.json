@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The behaviour tree is a structured decision process that runs to completion on a unit of work (a message pair) and either produces an output or doesn't. It is not a continuous game AI tick — it's closer to the robotics application.\n\n**Inputs:** a message pair (agent turn, user turn, repo path, timestamp, session context)\n**Outputs:** one of — write to Octowiki, append to questions log, append to rejected directions, discard\n\n**Invariants:**\n- A pair is processed exactly once\n- A failed classification never writes anything\n- The tree never mutates Octowiki directly — it proposes a write, a separate write node executes it\n- Every decision to write must carry provenance (session ID, timestamp, raw pair)\n\n**Tree structure:**\n```\nRoot (Sequence)\n├── LoadProjectContext\n│   ├── ReadOctowiki(relevant sections)\n│   └── ReadRecentDecisions(last N entries)\n├── PairAnalysis (Sequence)\n│   ├── DetectRatification\n│   ├── DetectDecision\n│   ├── DetectRejection\n│   ├── DetectOpenQuestion\n│   └── DetectClarification\n├── Selector: Act on strongest signal\n│   ├── [Decision/Ratification] → ProposeWikiWrite\n│   ├── [Rejection] → ProposeWikiWrite(rejected_directions)\n│   ├── [OpenQuestion] → AppendToQuestions\n│   ├── [Clarification] → UpdateProjectSummary\n│   └── [no signal] → Discard\n└── MarkProcessed\n```\n\nThe root is a Sequence (not a Selector like shoe-makers) — all stages must run or abort.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "The root is a Sequence, not a Selector. This is subtly different from shoe-makers.",
+    "raw_user": "The tree structure: Root (Sequence) ├── LoadProjectContext... ├── PairAnalysis... ├── Selector: Act on strongest signal... └── MarkProcessed"
+  }
+}

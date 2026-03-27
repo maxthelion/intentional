@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Ratification provenance must extract `what_was_ratified` from the agent turn. When user says 'yes', the raw_user field is almost useless as audit trail. The ratification classifier's job is to extract what was being proposed from the agent turn, verify the user turn is confirmatory, and record the extraction — not the 'yes'. Context loading should happen once per session, not per pair.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 11,
+    "raw_agent": "The ratification classifier's job is to extract what_was_ratified from the agent turn, then verify the user turn is confirmatory. The write records the extraction, not the 'yes'. On the context loading question — load once per session, not per pair.",
+    "raw_user": "Pairs question is interesting, a usecase is when the agent asks me something, and I just say 'yes'. My answer has no information except to confirm the information the agent said",
+    "what_was_ratified": "Ratification provenance design: extract substance from agent turn, record extraction not the confirmation. Context loaded once per session."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "**Key implementation principles:**\n\n1. **Separation of detection from action.** Condition nodes only classify — they never write. This enables dry-run mode against historical inbox data to tune classifiers without touching Octowiki.\n\n2. **Specialist loading is critical.** A generalist asking 'is this a decision?' has too many false positives. A specialist loaded with current Octowiki state asks the better question: 'does this change what we already know?' — which has a much lower false positive rate because most conversation confirms existing understanding.\n\n3. **Ratification is structurally different from decision detection.** A decision can appear in a single agent turn. Ratification requires the pair — extract what the agent proposed from the agent turn, check user turn for confirmation. Record what the agent proposed, not what the user said.\n\n4. **Data-driven, not code-driven.** Signal types, confidence thresholds, and section mappings live in config, not tree implementation. Adding a new signal type is a config change, not a code change.\n\n5. **Write proposals are structured objects** with confidence thresholds and staging. Above threshold → auto-commit. Below → triage queue for human review. This gives a dial between fully automatic and fully supervised.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "A few things worth calling out explicitly before implementation",
+    "raw_user": "Separation of detection from action. The condition nodes only classify — they never write... The specialist loading step is critical... Ratification is structurally different from decision detection... The tree should be data-driven not code-driven..."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The agent must NOT traverse the behaviour tree itself. Tree traversal is deterministic and done by a script (the evaluator) before the agent runs. The script scans pending/ for unprocessed pairs, checks Octowiki readability, checks staging for proposals awaiting review, and outputs a structured `state/next-action.json`. The agent is a pure function: it reads the next action, executes the classification, produces a proposal or discard, and exits. The agent never decides what to work on — the script decides, the agent executes. Same principle as shoe-makers.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "It shouldn't traverse the tree itself — reasoning about what to do is where agents go wrong. The traversal should be deterministic. The agent gets handed a specific task and executes it as a pure function.",
+    "raw_user": "How do we envisage that working? If it were run every hour in a repo with an agent with a prompt, what would they do? Which parts can be made deterministic?"
+  }
+}

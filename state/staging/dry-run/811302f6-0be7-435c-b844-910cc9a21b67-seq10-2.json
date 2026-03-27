@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "**Failure modes and recovery:**\n- Octowiki read fails → abort, don't process without context, re-queue the pair\n- Classifier returns ambiguous result → route to triage queue, don't discard\n- Write fails → pair stays unprocessed, retried next tick\n- Whole tree crashes → inbox entry stays with processed: false, picked up next tick\n\nThe inbox as an append-only log with a processed flag makes recovery trivial — you never lose a message pair, you just retry unprocessed ones.\n\n**Testing approach:** Run tree against a labelled dataset of real inbox pairs (characterisation approach). Measure precision and recall per signal type. Tune specialist prompts until false positive rate is low enough for auto-commit. Auto-commit threshold should start conservative (maybe only ratifications and explicit decisions) and expand as classifier earns trust.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "The important failure handling: Octowiki read fails → abort...",
+    "raw_user": "Failure modes. The tree can fail at any node... The inbox as an append-only log with a processed flag is what makes recovery trivial..."
+  }
+}

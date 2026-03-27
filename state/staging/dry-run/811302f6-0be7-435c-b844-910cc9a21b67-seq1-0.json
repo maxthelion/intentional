@@ -1,0 +1,4 @@
+{
+  "type": "discard",
+  "reason": "The user is restating context ('we were working on the inbox idea') in response to the agent asking for a reminder. No decision, ratification, rejection, clarification, or open question is present — just a context-setting exchange at the start of a session."
+}

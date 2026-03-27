@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "overview",
+  "content": "The shoe-makers project is reference only — for its approach to agents as pure functions in a behaviour tree. Intentional does not import or copy from shoe-makers, but borrows the patterns.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 11,
+    "raw_agent": "is intentional a new project that imports shoe-makers as a library, adapting its behaviour tree — or are we building something standalone that borrows the patterns?",
+    "raw_user": "Yes, the shoemakers project was more for reference about agents as pure functions operating in a behaviour tree. We don't need to copy, but it had quite a good approach.",
+    "what_was_ratified": "Shoe-makers as reference/pattern source only, not a dependency"
+  }
+}

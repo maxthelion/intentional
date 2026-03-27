@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The triage pipeline should be orchestrated using a behaviour tree, inspired by game AI patterns. The user's blog post (https://blog.maxthelion.me/blog/behaviour-trees/) describes the approach: a selector tree where urgent/reactive tasks (failing tests, critiques, inbox messages) take priority at the top, and proactive tasks (explore, prioritise, execute) fill the bottom. Key principles: (1) agents are envisioned as pure functions — they receive deterministic instructions and modify the repo, (2) separating stages prevents agents from skipping steps, (3) the tree is evaluated on each loop pass, (4) declarative project description (wiki as source of truth) rather than task-level instruction. The Maslow's hierarchy analogy applies: hygiene first, then implementation, then innovation.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 6,
+    "raw_agent": "I can't browse URLs directly — I don't have internet access. Could you paste the content of the post?",
+    "raw_user": "https://blog.maxthelion.me/blog/behaviour-trees/"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "intent-pipeline",
+  "content": "The intent pipeline has six stages, each a transformation:\n1. **Conversations** generate signal\n2. **Logging** captures it raw — lossless, no judgement, just preservation\n3. **Triage** extracts signal — decisions, rejections, open questions separated from noise\n4. **Octowiki** consolidates — the current authoritative statement of what the system is and why\n5. **Characterisation tests** are the executable shadow of Octowiki — what 'correct' looks like in runnable form\n6. **CodeHealth** is continuous audit — does the codebase still reflect the intent, or has it drifted?\n\nTraceability runs end-to-end in the NASA sense: any test traces to a characterisation decision, to an Octowiki entry, to the conversation where it was decided, to the raw inbox log. This traceability is generated automatically rather than maintained by discipline.",
+  "confidence": 0.95,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "The traceability chain you're describing requires stable IDs all the way down.",
+    "raw_user": "The pipeline is: Conversations generate signal → logging captures it raw → triage distils it → Octowiki holds the distilled intent → characterisation tests freeze the implied behaviour → CodeHealth verifies the code respects it. Each stage is a transformation."
+  }
+}

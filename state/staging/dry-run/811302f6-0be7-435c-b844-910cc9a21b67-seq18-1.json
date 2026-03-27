@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Dry-run mode: the write node is a no-op. Classification runs normally, but proposals go to `state/staging/dry-run/` instead of being applied to Octowiki. You can inspect every proposal and see what the tree would have done. When you trust the classifier, flip a flag and proposals go to `state/staging/pending/` for auto-commit. Build order: deterministic evaluator first (no LLM, just filesystem checks producing next-action.json), then the agent prompt around it.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "Dry-run just means the write node is a no-op. The classification runs, the proposal is written to staging/dry-run/ instead of being applied. What to build first: The deterministic evaluator — it has no LLM, it's just file system checks producing a next-action.json.",
+    "raw_user": "I think we should build some of the ground work for running the behaviour tree as a dry run."
+  }
+}

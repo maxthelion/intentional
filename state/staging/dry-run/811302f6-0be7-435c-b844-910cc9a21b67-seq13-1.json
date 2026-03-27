@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "The agent's retrospective classification of the first 12 pairs was ratified by the user as correct. This validates the classifier's approach: decisions and ratifications get written to Octowiki, procedural exchanges get discarded, unresolved topics become open questions.",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 13,
+    "raw_agent": "Looking at the 12 pairs, here's what the triage system would have extracted: [detailed classification of all pairs]",
+    "raw_user": "I think it's fine.",
+    "what_was_ratified": "The retrospective classification of the first 12 pairs — what would be written to Octowiki, what would be discarded, what would be flagged as open questions"
+  }
+}

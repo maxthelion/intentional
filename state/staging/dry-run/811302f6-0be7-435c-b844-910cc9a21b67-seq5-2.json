@@ -1,0 +1,14 @@
+{
+  "type": "ratification",
+  "project": "intentional",
+  "section": "inbox",
+  "content": "The inbox is the mouth of the pipeline. One file per conversation/session (not per message) because the conversation is the atomic unit of truth. Raw capture must be lossless and immutable — done/ files are never modified, only derived artifacts change. The done/ move is the handoff signal to triage, not a 'finished' marker.",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "The inbox isn't a messaging utility — it's the mouth of the pipeline. One file per conversation/session (not per message) — because the conversation is the atomic unit of truth. Raw capture must be lossless and immutable.",
+    "raw_user": "Conversations are the source of truth for intent. Everything else is derived.",
+    "what_was_ratified": "Inbox as mouth of the pipeline; one file per session; lossless immutable capture; done/ as handoff to triage not a finished marker"
+  }
+}

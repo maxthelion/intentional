@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "overview",
+  "content": "Octowiki is installed and initialized in the intentional repo at wiki/pages/. It is the destination for distilled intent from the triage pipeline.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 14,
+    "raw_agent": "Done. Wiki is scaffolded at wiki/pages/. The CLAUDE.md has been updated with wiki instructions for agents.",
+    "raw_user": "We should install my project octowiki. It's probably available on this machine, we'd need to run its init to make a wiki in this dir"
+  }
+}

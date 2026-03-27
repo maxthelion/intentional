@@ -1,0 +1,13 @@
+{
+  "type": "decision",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "PairAnalysis needs a rolling window of recent pairs, not just the current pair. This is required to detect corrections — where a user turn is correcting something the agent claimed in a previous turn. Without the rolling window, the classifier can't distinguish a correction from a rejection.",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 12,
+    "raw_agent": "The tree can't just look at individual pairs in isolation. To correctly classify the correction, it needs to know what the agent claimed in the previous turn. That's a case for carrying a small rolling window of recent pairs into PairAnalysis.",
+    "raw_user": "I don't care, but I'm interested in these quirks of conversation"
+  }
+}

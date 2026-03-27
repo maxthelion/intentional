@@ -1,0 +1,13 @@
+{
+  "type": "clarification",
+  "project": "intentional",
+  "section": "triage-behaviour-tree",
+  "content": "Edge case: a single user turn can contain a complete design document ('spec drop'). This inverts the assumed pattern of agent-proposes/user-confirms. The tree needs to handle cases where the user turn is the substantive one and the agent turn is just acknowledgement. A single pair may also contain multiple distinct signals — the tree needs to handle multi-signal pairs (e.g. seq 10 had ~8 decisions in one user turn).",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 13,
+    "raw_agent": "seq 10 — a single user turn containing a complete design document. That's not really a 'pair' in the ratification sense, it's a spec drop. The tree needs to handle the case where the user turn is the substantive one and the agent turn is just acknowledgement.",
+    "raw_user": "I think it's fine. We can also look at .pi/inbox to try to judge what would make sense."
+  }
+}
