@@ -11,11 +11,41 @@
  *   └── [always]                             → idle
  */
 
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, readdir, rename } from "fs/promises";
 import { join } from "path";
 import { findPendingSessions, getRollingWindow } from "./inbox";
 import { countStagingProposals } from "./staging";
 import type { NextAction } from "./types";
+
+const INBOX_ROOT = join(process.cwd(), ".pi", "inbox");
+const INBOX_PENDING = join(INBOX_ROOT, "pending");
+const INBOX_DONE = join(INBOX_ROOT, "done");
+
+/**
+ * Move any flat JSONL files from .pi/inbox/ into pending/.
+ * Pi writes session files to the flat inbox root — this syncs them
+ * into the pending/ directory so the evaluator can pick them up.
+ */
+async function syncInbox(): Promise<void> {
+  await mkdir(INBOX_PENDING, { recursive: true });
+  await mkdir(INBOX_DONE, { recursive: true });
+
+  const files = await readdir(INBOX_ROOT).catch(() => [] as string[]);
+  for (const file of files) {
+    if (!file.endsWith(".jsonl")) continue;
+    const src = join(INBOX_ROOT, file);
+    const dest = join(INBOX_PENDING, file);
+    const done = join(INBOX_DONE, file);
+
+    // Skip if already in pending/ or done/
+    const inPending = await readdir(INBOX_PENDING).then((fs) => fs.includes(file)).catch(() => false);
+    const inDone = await readdir(INBOX_DONE).then((fs) => fs.includes(file)).catch(() => false);
+    if (inPending || inDone) continue;
+
+    await rename(src, dest);
+    console.log(`  synced ${file} → pending/`);
+  }
+}
 
 const NEXT_ACTION_PATH = join(process.cwd(), "state", "next-action.json");
 
@@ -55,6 +85,7 @@ async function evaluate(): Promise<NextAction> {
 }
 
 async function main() {
+  await syncInbox();
   const action = await evaluate();
   await mkdir(join(process.cwd(), "state", "staging", "dry-run"), { recursive: true });
   await mkdir(join(process.cwd(), "state", "staging", "pending"), { recursive: true });
