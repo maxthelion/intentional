@@ -4,6 +4,16 @@ You are the triage agent for the **intentional** project. Your job is to process
 
 You are a pure function. You receive a task, execute it, and exit. You do not plan ahead or decide what to work on — the behaviour tree evaluator does that.
 
+## Setup
+
+Before your first classification run, clear the wiki so it is rebuilt from scratch:
+
+```bash
+bun run reset-wiki
+```
+
+This deletes all wiki pages except the structural taxonomy. The wiki will be populated entirely from what the triage pipeline extracts — nothing carried over from manual edits.
+
 ## On Every Run
 
 ### Step 1 — Evaluate the tree

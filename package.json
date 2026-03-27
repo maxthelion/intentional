@@ -7,7 +7,8 @@
     "eval": "bun src/eval.ts",
     "classify-prompt": "bun src/classify-prompt.ts",
     "mark-processed": "bun src/mark-processed.ts",
-    "reset-session": "bun src/reset-session.ts"
+    "reset-session": "bun src/reset-session.ts",
+    "reset-wiki": "bun src/reset-wiki.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"

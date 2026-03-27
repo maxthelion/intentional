@@ -76,6 +76,18 @@ ${formatPair(action.pair, "Current pair")}
 
 ## Instructions
 
+### External links
+
+Before classifying, scan both the agent turn and user turn for URLs. If any are present, fetch them:
+
+\`\`\`bash
+curl -s <url>
+\`\`\`
+
+Read the content and consider whether it is relevant context for understanding the pair. Blog posts, documentation, and articles shared during a conversation often directly inform the decisions being made — treat their content as background context for classification, even if the pair itself only contains the URL. Do not discard a pair solely because the user turn is a URL — follow it first.
+
+### Detectors
+
 Run each detector in order. A pair may trigger multiple detectors.
 
 **Detectors:**
