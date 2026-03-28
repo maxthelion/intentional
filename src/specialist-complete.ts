@@ -5,7 +5,7 @@
  * Usage: bun src/specialist-complete.ts --category functionality
  */
 
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import type { SpecialistProgress } from "./types";
 
@@ -20,6 +20,7 @@ async function main() {
   }
   const category = args[idx + 1];
 
+  await mkdir(join(process.cwd(), "state"), { recursive: true });
   let progress: SpecialistProgress;
   try {
     progress = JSON.parse(await readFile(PROGRESS_PATH, "utf-8"));
