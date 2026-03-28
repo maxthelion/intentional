@@ -1,108 +1,70 @@
 ---
 title: Intent Pipeline
-category: pipeline
-tags: [pipeline, triage, resolution, octowiki, characterisation, traceability]
-summary: "The transformation chain from raw conversation to structured wiki: logging → triage → resolution → application. Each stage has a single responsibility."
+category: intent-pipeline
+tags: [architecture, classification, specialists]
+summary: Architecture of the intent extraction pipeline, including specialist reader approach.
 last-modified-by: agent
 ---
 
-## Overview
+## Specialist Reader Architecture
+
+Instead of a single generalist classifier asking "is there any signal here?", the pipeline runs multiple domain specialists against the same conversation. Each specialist is loaded with only the relevant Octowiki sections for their domain. The architect asks "does this change the system structure?", not "is this any kind of signal?". Benefits:
+
+- Lower false positive rate — each specialist knows its domain
+- Better categorisation — the specialist already knows what category they're writing for
+- Partially dissolves the resolution problem — specialists write to their own domains, so conflicts within a domain are rare and cross-domain conflicts don't really exist
+
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/50]]
+
+## Specialist Sequencing Order
+
+The specialist reader pipeline is not parallel — it is sequenced. Lower-level pages depend on higher-level pages for context, preventing implementation-focused drift.
+
+The ordering follows the octowiki category taxonomy:
 
 ```
-Conversation → Inbox (pending/) → Triage → Resolution → Application → Octowiki → Characterisation Tests
+Conversation
+  → Functionality specialist  → functionality pages
+  → Architecture specialist   (reads functionality pages) → architecture pages
+  → Pipeline specialist       (reads architecture pages) → pipeline pages
+  → Data-model specialist     (reads pipeline pages) → data-model pages
+  → Algorithm specialist      (reads data-model pages) → algorithm pages
+  → Testing specialist        (reads algorithm pages) → testing pages
 ```
 
-Each stage is a transformation with a single responsibility. No stage does the work of another.
+Each specialist gets the full conversation AND all pages produced by levels above. Higher-level pages steer lower-level generation toward purpose rather than mechanics.
 
-[[source:811302f6/5]]
+The citation format supports cross-level references — a data-model page can cite both a conversation pair (`[[source:session_id/seq]]`) and a functionality page as the reason a field exists.
 
-## Stage 1 — Logging (Inbox)
+This also enables an adversarial check after each level: does this page serve the level above? An architecture page that can't be traced to a functionality need is suspect.
 
-**Responsibility:** Lossless capture. No judgement, no filtering, no transformation.
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/53]]
 
-Every conversation is written to `.pi/inbox/` as a JSONL file by the pi agent. The eval script automatically migrates these files into `pending/` before scanning. Each line is a message pair (agent turn + user turn). The file is never modified after capture. If a session is interrupted, the partial file is valid — unprocessed pairs are retried.
+## Ordering Implementation — Confirmed
 
-**Input:** Live conversation
-**Output:** `.pi/inbox/pending/{timestamp}-{session_id}.jsonl`
-**Invariant:** Nothing is lost. The raw signal is always recoverable.
+The specialist sequencing order has been implemented in code: config defining the category order and context dependencies, a specialist prompt builder, and the SCHEDULED_PROMPT updated to describe the specialist generation mode.
 
-[[source:811302f6/5]] [[source:811302f6/36]]
+The functionality specialist has no context dependencies — it reads the raw conversation and asks "what can humans and agents do with this system?" Everything else flows from that.
 
-## Stage 2 — Triage (Classification)
+Next step: run the functionality specialist against the founding session as the first real test of whether top-down generation avoids the implementation-first problem. [[source:811302f6-0be7-435c-b844-910cc9a21b67/54]]
 
-**Responsibility:** Signal extraction. Decisions, rejections, open questions separated from noise.
+## Specialist Pipeline Status
 
-A behaviour tree runs against each unprocessed message pair, loads the current Octowiki context as a specialist, and classifies the pair. A single pair may produce multiple proposals — a spec-drop pair can contain several distinct decisions. Each proposal is a structured JSON object written to `state/staging/dry-run/`.
+**What works:**
+- `bun run specialist-prompt --category X` generates the correct prompt with conversation + prior-level context
+- Each level correctly loads pages from prior levels
 
-When a session is fully processed, its file moves from `pending/` to `done/`.
+**What's missing:**
+- An **apply step** (`src/apply.ts`) — no script that takes proposals from `state/staging/dry-run/` and writes them to wiki pages. An agent must do this manually between each specialist run.
+- **Orchestration** — nothing runs the six levels in sequence, applying between each
+- The `SCHEDULED_PROMPT.md` describes the specialist flow but it's manual — an agent runs each level, applies proposals, then runs the next
 
-**Input:** Message pair + Octowiki context
-**Output:** N write proposals (structured JSON) or discard
-**Invariant:** A pair is processed exactly once. A failed classification never writes anything.
+Currently works if an agent follows the steps in `SCHEDULED_PROMPT.md` manually. No automated end-to-end run yet.
 
-See [[triage-behaviour-tree]] for the full decision logic.
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/56]]
 
-[[source:811302f6/10]] [[source:811302f6/13]]
+## Open Question: Build src/apply.ts
 
-## Stage 3 — Resolution
+The missing piece for end-to-end specialist pipeline operation is `src/apply.ts` — a script that reads resolved proposals and writes wiki pages with citations. Without it, an agent must manually apply proposals between each specialist level.
 
-**Responsibility:** Conflict detection and recency-based consolidation.
-
-Raw proposals from triage may conflict — if the conversation says "A is blue" and later "A is red", both proposals exist. Resolution detects conflicts by grouping proposals by `topic`, applies recency (higher seq wins within a session, later session wins across sessions), and marks superseded proposals. Resolved proposals are written to `state/staging/resolved/`.
-
-Resolution is agentic — it reads proposals alongside the original conversation pairs (via provenance) so it can reason about intent, not just the extracted text.
-
-**Input:** Raw proposals from dry-run/ + original session pairs (for lookback)
-**Output:** Consolidated proposals in resolved/
-**Invariant:** Superseded proposals are marked but preserved — provenance is never destroyed.
-
-[[source:811302f6/27]]
-
-## Stage 4 — Application
-
-**Responsibility:** Writing resolved proposals to Octowiki.
-
-An agent reads each resolved proposal in chronological order and applies it to the relevant wiki page — creating the page if it doesn't exist, updating it if it does. Each written claim includes a citation (`[[source:session_id/seq]]`) so the provenance chain is visible in the wiki itself.
-
-Application is agentic and can look up original conversation pairs via provenance when it needs more context than the proposal provides.
-
-**Input:** Resolved proposals + original session pairs
-**Output:** Updated wiki pages with inline citations
-**Invariant:** Every wiki claim has a citation. Every citation is traceable to an immutable inbox record.
-
-[[source:811302f6/25]]
-
-## Stage 5 — Characterisation Tests
-
-**Responsibility:** Freezing implied behaviour as executable tests.
-
-For every invariant declared in Octowiki, a characterisation test is derived. The test encodes what "correct" looks like in runnable form. Tests are derived by agents from the spec — humans do not write them.
-
-**Input:** Invariants from Octowiki
-**Output:** Test suite in the project under test
-**Invariant:** Every test traces back to a specific Octowiki entry.
-
-[[source:811302f6/5]]
-
-## Traceability Chain
-
-```
-Characterisation test
-  → Octowiki entry (with [[source:session_id/seq]] citation)
-    → Write proposal (confidence, type, topic)
-      → Message pair (session_id, seq)
-        → Raw inbox log (.pi/inbox/done/ — immutable)
-```
-
-## What Is Not In This Pipeline
-
-- **CodeHealth** — checking whether invariants are met in code is a separate concern, handled by octowiki invariants. [[source:811302f6/17]]
-- **Work item generation** — identifying what to build next from the spec delta is downstream of this pipeline, handled by the agent loop.
-- **Code generation** — intentional produces the specification; code is derived from it elsewhere.
-
-## Related Pages
-
-- [[inbox]] — inbox format and pending/done structure
-- [[triage-behaviour-tree]] — how classification works
-- [[write-proposals]] — proposal format, staging, and resolution
-- [[overview]] — why the pipeline exists
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/56]]

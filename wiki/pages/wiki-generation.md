@@ -1,83 +1,64 @@
 ---
 title: Wiki Generation
-category: pipeline
-tags: [generation, specialists, ordering, context-dependencies, top-down]
-summary: "How Octowiki pages are generated from proposals — using an ordered sequence of specialist agents that build from high-level functionality down to implementation detail."
+category: wiki-generation
+tags: [evaluation, reference-wiki, characterisation-tests]
+summary: Strategies and evaluation framework for generating wiki content from conversations.
 last-modified-by: agent
 ---
 
-## The Problem with Generalist Generation
+## Reference Wiki Evaluation Framework
 
-When a single generalist agent generates wiki pages, it tends toward implementation detail — describing mechanics rather than purpose. Lower-level pages (algorithms, data models) get written without grounding them in the human needs they serve.
+To evaluate different wiki generation strategies, use a reference wiki (written manually with full conversation context) as ground truth. The evaluation framework checks:
 
-The solution is top-down generation: start with what humans and agents expect from the system, then derive architecture, then pipelines, then data models, then algorithms. Each level is written in terms of the level above.
+- **Completeness** — is all the right content included?
+- **Invariants** — are the invariants captured? (octowiki's existing invariants pipeline already does some of this)
+- **Structure** — are the pages structured sensibly?
+- **Categorisation** — is content in the right categories/pages?
 
-## Generation Order
+The reference wiki already exists in git history from the start of the session. This is the characterisation test approach applied to wiki generation itself — the reference wiki is ground truth, different strategies are evaluated against it.
 
-Wiki pages are generated in category order. Each specialist reads the conversation and all pages from prior levels as context:
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/50]]
 
-```
-1. functionality   — what users and agents can do (no prior context needed)
-2. architecture    — structure that meets functional needs
-3. pipeline        — data flow through the architecture
-4. data-model      — schemas and formats the pipeline operates on
-5. algorithms      — computation within the data model
-6. testing         — verifiable correctness derived from functionality + architecture
-```
+## Citation Format
 
-A lower-level specialist who spots something that belongs at a higher level writes it as an open question rather than writing it themselves. This keeps levels clean.
+Every claim written to the wiki must include a citation linking back to the conversation pair that supports it, like Wikipedia footnotes. The chosen format is an inline wikilink:
 
-## Specialist Constraints
-
-Each specialist:
-- Reads the full conversation from `.pi/inbox/done/`
-- Reads wiki pages from all prior levels as context
-- Writes only to their assigned category
-- Grounds every claim in the conversation — no inference beyond what was said
-- Ends every content block with a `[[source:session_id/seq]]` citation
-- Writes one proposal per distinct topic
-
-## Context Dependencies
-
-| Category | Reads from prior levels |
-|---|---|
-| functionality | _(none)_ |
-| architecture | functionality |
-| pipeline | functionality, architecture |
-| data-model | functionality, architecture, pipeline |
-| algorithms | functionality, architecture, pipeline, data-model |
-| testing | functionality, architecture |
-
-The testing specialist reads functionality and architecture rather than implementation levels — tests should verify behaviour, not implementation details.
-
-## Reference Wiki
-
-Before running the automated specialist pipeline, a reference wiki can be hand-crafted from the full conversation context. This serves as a gold standard for evaluating the quality of automated generation. Different generation strategies can be compared against it.
-
-Evaluation checks:
-- **Completeness** — is every significant decision from the conversation captured?
-- **Invariant coverage** — are declared invariants machine-readable and present?
-- **Categorisation** — are pages in the right categories?
-- **Structure** — do pages follow the category taxonomy format?
-- **Citations** — does every claim have a `[[source:session_id/seq]]` reference?
-- **No hallucination** — does the wiki contain claims not supported by the conversation?
-
-## Running the Pipeline
-
-```bash
-bun run specialist-prompt --category functionality
-# agent reads prompt → writes proposals to state/staging/dry-run/specialist-functionality-*.json
-# apply those proposals to wiki before proceeding
-
-bun run specialist-prompt --category architecture
-# now has functionality pages as context
-# ... and so on
+```markdown
+The inbox uses a pending/done directory structure. [[source:session_id/seq]]
 ```
 
-Do not run a lower level before the levels above it have been applied to the wiki — the context dependencies will be missing.
+This format is:
+- Machine-readable and stable
+- Consistent with octowiki's existing wikilink model
+- Could render as a tooltip or expandable reference showing the raw pair
 
-## Related Pages
+The citation discipline forces specialist agents to be honest about what's actually in the conversation versus what they're inferring. It also provides a free completeness check: any wiki claim without a citation is either a hallucination risk or was written by a human and needs a source added.
 
-- [[intent-pipeline]] — the broader pipeline this sits within
-- [[triage-behaviour-tree]] — the classification stage that precedes generation
-- [[write-proposals]] — the proposal format specialists produce
+Specialists produce not just "write this to the wiki" but "write this claim with a citation to the pair that supports it".
+
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/51]]
+
+## Proposal Schema Requirements
+
+The citation format is now part of the formal proposal schema (confirmed). Every proposal must include:
+- `topic` — normalised identifier for grouping and deduplication
+- `content` ending with `[[source:session_id/seq]]` — visible provenance in the wiki
+
+Citations are a required field, not just a convention. [[source:811302f6-0be7-435c-b844-910cc9a21b67/52]]
+
+## Reference Wiki Established
+
+The reference wiki has been created with 8 pages built in top-down order, with full `[[source:session_id/seq]]` citations:
+
+- **functionality.md** — what humans and agents do, scope boundary
+- **overview.md** — includes resolution stage, no-manual-edits, tool relationships
+- **intent-pipeline.md** — resolution stage added as Stage 3, application as Stage 4
+- **inbox.md** — auto-sync, multi-day sessions
+- **triage-behaviour-tree.md** — multi-signal pairs, external links, inverted pairs, agent-must-not-commit
+- **write-proposals.md** — topic field, citations, staging areas, conflict resolution
+- **wiki-generation.md** — ordered specialist pipeline, reference wiki, evaluation checks
+- **decisions.md** — 12 ADRs with full provenance citations
+
+This is now the baseline for evaluating alternative generation strategies.
+
+[[source:811302f6-0be7-435c-b844-910cc9a21b67/55]]
