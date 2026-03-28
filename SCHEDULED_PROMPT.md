@@ -26,14 +26,7 @@ Read the output and `state/next-action.json`. This is the sole source of truth f
 bun run apply-prompt
 ```
 
-Follow the prompt exactly:
-1. Read the proposal and the current wiki page
-2. Update the wiki page to incorporate the proposal content (create if it doesn't exist)
-3. Include the `[[source:session_id/seq]]` citation
-4. Write the updated page
-5. Delete the proposal file: `rm <proposal_path>`
-
-Then go back to Step 1.
+Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
 
 ---
 
@@ -43,18 +36,7 @@ Then go back to Step 1.
 bun run specialist-prompt --category <category>
 ```
 
-Follow the prompt exactly:
-1. Read the full conversation from `.pi/inbox/done/`
-2. Read the prior-level wiki pages listed as context
-3. Extract signals relevant to your specialist domain
-4. Write one proposal per distinct topic to `state/staging/dry-run/specialist-<category>-<topic>.json`
-
-Then mark the level complete:
-```bash
-bun run specialist-complete --category <category>
-```
-
-Then go back to Step 1.
+Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
 
 ---
 
@@ -64,13 +46,7 @@ Then go back to Step 1.
 bun run classify-prompt
 ```
 
-Follow the prompt exactly:
-1. Fetch any URLs in the pair before classifying
-2. Run each detector in order
-3. Write one proposal per detected signal to `state/staging/dry-run/`
-4. Run: `bun run mark-processed --session <id> --seq <seq>`
-
-Then go back to Step 1.
+Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
 
 ---
 
@@ -79,7 +55,9 @@ Then go back to Step 1.
 - **One action per invocation. Always exit after completing it.**
 - Never write to Octowiki directly during classification or specialist passes. Write proposals only.
 - Never modify files in `.pi/inbox/done/`. The archive is immutable.
-- Never commit or push. That is the scheduler's decision.
+- **classify** — never commit. Proposals are ephemeral.
+- **specialist** — commit `state/specialist-progress.json` only, not proposals.
+- **apply** — commit the wiki page change immediately after writing it.
 - Every proposal must include full provenance: `session_id`, `seq`, `raw_agent`, `raw_user`.
 - Every wiki claim must include a `[[source:session_id/seq]]` citation.
 

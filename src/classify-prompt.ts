@@ -5,7 +5,7 @@
  * Usage: bun src/classify-prompt.ts
  */
 
-import { readFile, readdir } from "fs/promises";
+import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import type { NextAction, MessagePair } from "./types";
 
@@ -134,7 +134,10 @@ bun run mark-processed --session ${action.session_id} --seq ${action.seq}
 Then run \`bun run eval\` to get the next pair.
 `;
 
-  console.log(prompt);
+  const taskPath = join(process.cwd(), "state", "current-task.md");
+  await mkdir(join(process.cwd(), "state"), { recursive: true });
+  await writeFile(taskPath, prompt);
+  console.log(`Task written to state/current-task.md — read it to proceed.`);
 }
 
 main().catch((err) => {

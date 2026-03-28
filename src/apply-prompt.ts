@@ -5,7 +5,7 @@
  * Usage: bun src/apply-prompt.ts
  */
 
-import { readFile } from "fs/promises";
+import { readFile, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import type { NextAction, WriteProposal, MessagePair } from "./types";
 
@@ -97,7 +97,10 @@ rm ${proposal_path}
 Then run \`bun run eval\` to get the next action.
 `;
 
-  console.log(prompt);
+  const taskPath = join(process.cwd(), "state", "current-task.md");
+  await mkdir(join(process.cwd(), "state"), { recursive: true });
+  await writeFile(taskPath, prompt);
+  console.log(`Task written to state/current-task.md — read it to proceed.`);
 }
 
 main().catch((err) => {

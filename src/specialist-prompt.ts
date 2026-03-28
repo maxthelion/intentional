@@ -7,7 +7,7 @@
  * Usage: bun src/specialist-prompt.ts --category functionality
  */
 
-import { readFile, readdir } from "fs/promises";
+import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { GENERATION_ORDER } from "./generation-config";
 import type { MessagePair } from "./types";
@@ -53,6 +53,8 @@ async function loadWikiCategory(category: string): Promise<string> {
   return pages.length > 0 ? pages.join("\n\n---\n\n") : "(none yet)";
 }
 
+const TASK_PATH = join(process.cwd(), "state", "current-task.md");
+
 async function main() {
   const { category } = parseArgs();
   const level = GENERATION_ORDER.find((l) => l.category === category);
@@ -60,6 +62,8 @@ async function main() {
     console.error(`Unknown category: ${category}. Valid: ${GENERATION_ORDER.map(l => l.category).join(", ")}`);
     process.exit(1);
   }
+
+  await mkdir(join(process.cwd(), "state"), { recursive: true });
 
   const pairs = await loadSessionPairs();
 
@@ -70,9 +74,12 @@ async function main() {
     contextSections.push(`## ${dep} pages (context)\n\n${content}`);
   }
 
-  const conversationText = pairs.map((p) =>
-    `**[seq=${p.seq} ${p.timestamp}]**\nAgent: ${p.agent}\nUser: ${p.user}`
-  ).join("\n\n---\n\n");
+  // Truncate long turns to keep prompt manageable
+  const conversationText = pairs.map((p) => {
+    const agent = p.agent.length > 600 ? p.agent.slice(0, 600) + "…" : p.agent;
+    const user = p.user.length > 400 ? p.user.slice(0, 400) + "…" : p.user;
+    return `**[seq=${p.seq} ${p.timestamp}]**\nAgent: ${agent}\nUser: ${user}`;
+  }).join("\n\n---\n\n");
 
   const prompt = `# Specialist Pass — ${level.role} (${category})
 
@@ -124,7 +131,9 @@ Write proposals to \`state/staging/dry-run/specialist-${category}-<topic>.json\`
 Produce one proposal per distinct topic. Do not combine multiple topics into one proposal.
 `;
 
-  console.log(prompt);
+  await writeFile(TASK_PATH, prompt);
+  console.log(`Task written to state/current-task.md (${prompt.length} chars)`);
+  console.log(`Read it with: cat state/current-task.md`);
 }
 
 main().catch((err) => {
