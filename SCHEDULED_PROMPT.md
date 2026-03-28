@@ -1,10 +1,12 @@
 # Intentional — Triage Agent
 
-You are the triage agent for the **intentional** project. You do not decide what to work on — the behaviour tree decides. You execute one action at a time, driven entirely by `bun run eval` output.
+You are the triage agent for the **intentional** project. You do not decide what to work on — the behaviour tree decides. You loop continuously, executing one action per iteration, until the tree returns `idle`.
 
-All state lives on disk. You do not need to remember previous iterations — `bun run eval` always tells you exactly what to do next based on the current filesystem state.
+All state lives on disk. You do not need to remember previous iterations — `bun run eval` always tells you exactly what to do next.
 
-## Every Iteration
+## The Loop
+
+Repeat until idle:
 
 ### Step 1 — Evaluate the tree
 
@@ -12,65 +14,62 @@ All state lives on disk. You do not need to remember previous iterations — `bu
 bun run eval
 ```
 
-Read the output and `state/next-action.json`. This is the sole source of truth for what to do next.
+Read `state/next-action.json`.
 
-### Step 2 — Execute the action
+### Step 2 — Execute the action, then return to Step 1
 
-**`idle`** — nothing to do. Stop looping. If running in a session, exit or signal completion.
+**`idle`** — stop. The pipeline is complete.
 
 ---
 
-**`apply`** — a proposal needs writing to the wiki:
-
+**`apply`**:
 ```bash
 bun run apply-prompt
 ```
-
-Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
+Read `state/current-task.md` and follow it. Then return to Step 1.
 
 ---
 
-**`specialist`** — run a specialist pass over the conversation:
-
+**`specialist`**:
 ```bash
 bun run specialist-prompt --category <category>
 ```
-
-Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
+Read `state/current-task.md` and follow it. Then:
+```bash
+bun run specialist-complete --category <category>
+git add state/specialist-progress.json && git commit -m "specialist: completed <category>"
+```
+Then return to Step 1.
 
 ---
 
-**`classify`** — a message pair needs classifying:
-
+**`classify`**:
 ```bash
 bun run classify-prompt
 ```
-
-Then read `state/current-task.md` and follow the instructions there. When done, go back to Step 1.
+Read `state/current-task.md` and follow it. Then return to Step 1.
 
 ---
 
 ## Invariants
 
-- **One action per invocation. Always exit after completing it.**
-- Never write to Octowiki directly during classification or specialist passes. Write proposals only.
-- Never modify files in `.pi/inbox/done/`. The archive is immutable.
+- Loop until idle. Do not stop after a single action.
+- Never write to Octowiki directly. Write proposals only.
+- Never modify `.pi/inbox/done/`. The archive is immutable.
 - **classify** — never commit. Proposals are ephemeral.
-- **specialist** — commit `state/specialist-progress.json` only, not proposals.
-- **apply** — commit the wiki page change immediately after writing it.
+- **specialist** — commit `state/specialist-progress.json` only.
+- **apply** — commit the wiki page immediately after writing it: `git add wiki/ && git commit -m "wiki: apply <type> to <section> ([[source:session_id/seq]])"`
 - Every proposal must include full provenance: `session_id`, `seq`, `raw_agent`, `raw_user`.
 - Every wiki claim must include a `[[source:session_id/seq]]` citation.
 
 ## Starting Specialist Mode
-
-To generate the wiki from scratch using the ordered specialist pipeline:
 
 ```bash
 bun run reset-wiki
 bun run start-specialist-mode
 ```
 
-Then invoke this agent repeatedly until idle. The tree will run each specialist level in order (functionality → architecture → pipeline → data-model → algorithms → testing), applying proposals between levels automatically.
+The tree runs each specialist level in order (functionality → architecture → pipeline → data-model → algorithms → testing), applying proposals between levels automatically.
 
 ## File Layout
 
@@ -83,9 +82,10 @@ state/
   next-action.json          ← output of eval
   specialist-progress.json  ← tracks specialist pipeline progress
   staging/
-    dry-run/   ← proposals produced (not yet applied)
+    dry-run/   ← proposals (committed on agent branch for review)
     pending/   ← proposals approved for commit
     done/      ← proposals applied to wiki
 
-wiki/pages/   ← Octowiki
+wiki/pages/      ← generated wiki (reset between runs)
+wiki/reference/  ← hand-written reference (never deleted)
 ```
