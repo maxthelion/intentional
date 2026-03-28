@@ -17,3 +17,7 @@ Files in `done/` must never be modified after they are moved there. Raw capture 
 ## Invariant: Reprocessing Is Idempotent
 
 Reprocessing a session must skip pairs where `processed: true`. A full reset (moving sessions back to pending, clearing processed flags) must produce the same proposals as the initial run — proposals are derived output, not source of truth, and must be reproducible from the raw conversations alone. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]
+
+## Invariant: Every Wiki Claim Has Provenance
+
+Every piece of content in the wiki must end with a `[[source:session_id/seq]]` citation. Every proposal must include full provenance: `session_id`, `seq`, `raw_agent`, `raw_user`. The provenance chain from wiki claim back to raw conversation must never be broken. A wiki page without citations indicates a pipeline bypass. [[source:811302f6-0be7-435c-b844-910cc9a21b67/28]]
