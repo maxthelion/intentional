@@ -4,7 +4,8 @@
     "architecture",
     "pipeline",
     "data-model",
-    "algorithms"
+    "algorithms",
+    "testing"
   ],
   "mode": "specialist"
 }

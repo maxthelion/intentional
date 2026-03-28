@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "testing",
+  "topic": "idempotent-reprocessing",
+  "page": "system-invariants",
+  "content": "## Invariant: Reprocessing Is Idempotent\n\nReprocessing a session must skip pairs where `processed: true`. A full reset (moving sessions back to pending, clearing processed flags) must produce the same proposals as the initial run — proposals are derived output, not source of truth, and must be reproducible from the raw conversations alone. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 26,
+    "raw_agent": "Right — the proposals are derived output, not source of truth. They should be gitignored so each run produces them fresh.",
+    "raw_user": "Yes, though we may want to re-run occasionally with blank output so that it can be recreated."
+  }
+}
