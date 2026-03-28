@@ -5,13 +5,14 @@
  * Usage: bun src/start-specialist-mode.ts
  */
 
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import type { SpecialistProgress } from "./types";
 
 const PROGRESS_PATH = join(process.cwd(), "state", "specialist-progress.json");
 
 async function main() {
+  await mkdir(join(process.cwd(), "state"), { recursive: true });
   const progress: SpecialistProgress = { completed: [], mode: "specialist" };
   await writeFile(PROGRESS_PATH, JSON.stringify(progress, null, 2));
   console.log("✓ Specialist mode started. Run bun run eval to begin.");
