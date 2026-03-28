@@ -39,10 +39,11 @@ export type NextAction =
 // A write proposal produced by the classifier agent
 export interface WriteProposal {
   id: string; // {session_id}-{seq}-{index}
-  type: "decision" | "ratification" | "rejection" | "open-question" | "clarification";
+  type: "decision" | "ratification" | "rejection" | "open-question" | "clarification" | "discard";
   project: string;
   section: string; // target Octowiki section
-  content: string;
+  topic: string; // short normalised identifier e.g. "inbox-structure", "bt-invariants"
+  content: string; // markdown, must include [[source:session_id/seq]] citation
   confidence: number; // 0–1
   provenance: {
     session_id: string;

@@ -104,7 +104,8 @@ Run each detector in order. A pair may trigger multiple detectors.
   "type": "decision" | "ratification" | "rejection" | "open-question" | "clarification",
   "project": "intentional",
   "section": "<target wiki section, e.g. 'inbox', 'triage-behaviour-tree'>",
-  "content": "<what should be written to or updated in the wiki>",
+  "topic": "<short normalised identifier for what this is about, e.g. 'inbox-structure', 'bt-invariants', 'pipeline-stages'>",
+  "content": "<markdown content to write to the wiki, must end with a citation: [[source:${action.session_id}/${action.seq}]]>",
   "confidence": <0.0–1.0>,
   "provenance": {
     "session_id": "${action.session_id}",
@@ -115,6 +116,8 @@ Run each detector in order. A pair may trigger multiple detectors.
   }
 }
 \`\`\`
+
+**Citation format:** Every piece of content written to the wiki must end with a citation in the format \`[[source:session_id/seq]]\`. This makes the provenance chain visible in the wiki itself — any claim can be traced back to the conversation pair that established it.
 
 If no signals are detected, output:
 \`\`\`json
