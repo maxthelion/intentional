@@ -1,0 +1,14 @@
+{
+  "type": "clarification",
+  "category": "pipeline",
+  "topic": "inbox-auto-migration",
+  "page": "session-processing",
+  "content": "## Inbox Auto-Migration\n\nThe eval script automatically moves flat JSONL files from `.pi/inbox/` into `pending/` before scanning. This handles the case where the pi capture tool writes to the flat inbox location rather than directly to `pending/`. The migration is transparent — no manual file movement is needed. [[source:811302f6-0be7-435c-b844-910cc9a21b67/36]]",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 36,
+    "raw_agent": "Yes — eval should do it automatically. Move any flat JSONL files from .pi/inbox/ into pending/ before scanning.",
+    "raw_user": "Ran a command, read a file... Dependencies installed. Now following the SCHEDULED_PROMPT.md instructions... The tree evaluates to idle — no unprocessed pairs in the inbox."
+  }
+}

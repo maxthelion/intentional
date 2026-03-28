@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "pipeline",
+  "topic": "classification-stage-inputs",
+  "page": "classification-stage",
+  "content": "## Classification Stage Inputs and Output\n\nThe classification stage receives a structured prompt containing: the pair to classify, a rolling window of prior pairs (for correction detection), and relevant Octowiki sections as context. It produces one output per pair — either a structured write proposal (JSON with type, topic, content, confidence, provenance) or a DISCARD with reasoning. The agent processes one pair at a time as a pure function. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "It wakes up, reads the next action file, and gets a prompt like: You are the triage classifier... Task: classify pair seq=4. ## Octowiki context (relevant sections) ## Rolling window (prior 2 pairs for correction detection) ## Pair to classify. It produces one output — a proposal or a discard — commits it, exits. Pure function.",
+    "raw_user": "How does an agent know what to do in its traversal of the tree?"
+  }
+}

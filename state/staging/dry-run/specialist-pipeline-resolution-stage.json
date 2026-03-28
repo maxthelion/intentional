@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "pipeline",
+  "topic": "resolution-stage-flow",
+  "page": "resolution-stage",
+  "content": "## Resolution Stage Flow\n\nThe resolution stage is mostly deterministic. It groups proposals by section and topic. If two proposals address the same thing, the later seq (or later session) wins — the superseded proposal is archived, not deleted. This stage exists because classification and resolution were originally conflated and needed to be separated: one step generates proposals (possibly conflicting), another resolves them. [[source:811302f6-0be7-435c-b844-910cc9a21b67/27]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 27,
+    "raw_agent": "The resolution step is interesting because it's mostly deterministic: Group proposals by section + topic. If two proposals address the same thing, later seq (or later session) wins. The superseded proposal is archived.",
+    "raw_user": "One thing I'm thinking is that the suggested invariants should be handled in a different step. Eg if I say a is blue, and then I say a is red, then the recency of the latter should replace the former."
+  }
+}

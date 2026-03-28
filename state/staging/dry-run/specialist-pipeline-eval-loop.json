@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "pipeline",
+  "topic": "eval-loop-flow",
+  "page": "eval-loop",
+  "content": "## Eval Loop Flow\n\nThe pipeline runs as a deterministic loop: `bun run eval` scans the filesystem and writes `state/next-action.json` describing what to do next. The agent reads the next-action, executes the task (classify a pair, apply a proposal), then eval runs again. The loop repeats until eval returns `idle`. The eval script has no LLM — it is purely filesystem checks producing a structured action. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "bun run eval → finds next unprocessed pair, writes state/next-action.json. bun run classify-prompt → prints structured task prompt. <agent classifies> → writes proposals. bun run mark-processed → flips processed flag. bun run eval → loop",
+    "raw_user": "How does an agent know what to do in its traversal of the tree?"
+  }
+}

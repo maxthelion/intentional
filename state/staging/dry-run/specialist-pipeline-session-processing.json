@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "pipeline",
+  "topic": "session-processing-order",
+  "page": "session-processing",
+  "content": "## Session Processing Order\n\nThe evaluator scans `pending/` for sessions with unprocessed pairs and finds the oldest unprocessed pair (`processed: false`). After the agent processes a pair, the processed flag is flipped to true. When all pairs in a session are processed, the session file moves from `pending/` to `done/`. Processing is sequential — oldest pair first — to maintain chronological consistency for correction detection. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "Scan pending/ — are there sessions with unprocessed pairs? Find the oldest unprocessed pair (processed: false). Output a structured 'next action' — which pair to classify, what context to load.",
+    "raw_user": "How does an agent know what to do in its traversal of the tree?"
+  }
+}

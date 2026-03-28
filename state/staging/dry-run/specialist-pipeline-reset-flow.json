@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "pipeline",
+  "topic": "reset-and-fresh-run",
+  "page": "pipeline-modes",
+  "content": "## Reset and Fresh Run Flow\n\nThe reset flow clears derived output and moves sessions back to pending: `bun run reset-wiki` deletes wiki pages, `bun run reset-session --all` moves sessions from `done/` back to `pending/` and clears processed flags. This enables a full fresh run — the pipeline recreates all proposals from scratch. Proposals are derived output, not source of truth, so they can always be regenerated. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 26,
+    "raw_agent": "Right — the proposals are derived output, not source of truth. They should be gitignored so each run produces them fresh.",
+    "raw_user": "Yes, though we may want to re-run occasionally with blank output so that it can be recreated."
+  }
+}
