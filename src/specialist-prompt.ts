@@ -83,19 +83,26 @@ async function main() {
 
   const prompt = `# Specialist Pass — ${level.role} (${category})
 
-You are the **${level.role}** reading this conversation to extract signals relevant to **${category}**.
+## Who You Are
 
-## Your Focus
+${level.persona}
+
+## What You Write About
 
 ${level.focus}
 
-## Your Constraints
+## What You Do NOT Write About
 
-- Only extract signals that fall within your domain (${category}). Do not write content that belongs to another level.
-- Every claim you write must be grounded in the conversation — do not infer or elaborate beyond what was said.
+${level.exclude}
+
+If you find yourself writing about something in the exclusion list, stop and either discard it or write it as an open question for the appropriate specialist.
+
+## General Constraints
+
+- Every claim must be grounded in the conversation — do not infer or elaborate beyond what was said.
 - Every piece of content must end with a citation: \`[[source:session_id/seq]]\`
 - Write for the next specialist who will read your output as context — be clear and precise, not exhaustive.
-- If a concept belongs to a higher level (e.g. you are the data modeller and spot an architectural decision), note it as an open question rather than writing it yourself.
+- One proposal per distinct topic.
 
 ${contextSections.length > 0 ? `## Context from Prior Levels\n\n${contextSections.join("\n\n")}` : ""}
 
