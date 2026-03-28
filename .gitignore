@@ -5,6 +5,7 @@ node_modules
 state/staging/pending/
 state/staging/done/
 state/next-action.json
+state/current-task.md
 
 # output
 out
