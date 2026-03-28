@@ -9,3 +9,7 @@ last-modified-by: agent
 ## Dry-Run vs Live Mode
 
 Dry-run means the write node is a no-op — classification runs and proposals are written to `staging/dry-run/` instead of being applied. In live mode, proposals go to `staging/pending/` for auto-commit to the wiki. The distinction is a flag, not a separate pipeline. You can inspect every proposal in dry-run and see exactly what the tree would have done before trusting it to run live. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]
+
+## Reset and Fresh Run Flow
+
+The reset flow clears derived output and moves sessions back to pending: `bun run reset-wiki` deletes wiki pages, `bun run reset-session --all` moves sessions from `done/` back to `pending/` and clears processed flags. This enables a full fresh run — the pipeline recreates all proposals from scratch. Proposals are derived output, not source of truth, so they can always be regenerated. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]
