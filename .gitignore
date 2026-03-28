@@ -2,6 +2,7 @@
 node_modules
 
 # staging areas — gitignored (proposals committed on agent branch instead)
+state/staging/dry-run/
 state/staging/pending/
 state/staging/done/
 state/next-action.json
