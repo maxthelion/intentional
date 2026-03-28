@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "algorithms",
+  "topic": "recency-based-conflict-resolution",
+  "page": "conflict-resolution-logic",
+  "content": "## Recency-Based Conflict Resolution\n\nWhen two proposals address the same topic, the later seq (or later session) wins. This is mostly deterministic: group proposals by section and topic, compare seq numbers, keep the most recent. Superseded proposals are archived, not deleted. The algorithm reflects the principle that later statements in a conversation supersede earlier ones on the same subject. [[source:811302f6-0be7-435c-b844-910cc9a21b67/27]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 27,
+    "raw_agent": "The resolution step is interesting because it's mostly deterministic: Group proposals by section + topic. If two proposals address the same thing, later seq (or later session) wins. The superseded proposal is archived.",
+    "raw_user": "if I say a is blue, and then I say a is red, then the recency of the latter should replace the former."
+  }
+}

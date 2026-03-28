@@ -1,0 +1,14 @@
+{
+  "type": "clarification",
+  "category": "algorithms",
+  "topic": "pair-level-analysis-gap",
+  "page": "classification-algorithms",
+  "content": "## Pair-Level Analysis Limitation\n\nPair-level analysis has a known gap: indirect influence across pairs is not captured. A pair that provides context (e.g., reading a blog post) may produce no signal itself, but the content shapes decisions in later pairs. The classifier correctly discards the contextual pair at the pair level, but the pipeline does not track this indirect influence. This is a known limitation, not a bug. [[source:811302f6-0be7-435c-b844-910cc9a21b67/23]]",
+  "confidence": 0.8,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 23,
+    "raw_agent": "Seq 8 is the most interesting discard: the blog reading pair got correctly discarded at the pair level (no decision in that exchange), but the blog content did shape decisions made in later pairs. That's a real limitation of pair-level analysis — indirect influence doesn't get captured. Worth noting as a known gap.",
+    "raw_user": "Ran a command, read a file..."
+  }
+}

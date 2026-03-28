@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "algorithms",
+  "topic": "rolling-window-context",
+  "page": "classification-algorithms",
+  "content": "## Rolling Window for Correction Detection\n\nThe classification prompt includes a rolling window of prior pairs (2 pairs) as context. This enables detection of corrections and false ratifications — where a user pushes back on an agent's prior framing. Without this window, the classifier would process each pair in isolation and miss cross-pair signals like \"no, that's wrong\" referring to a previous exchange. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "## Rolling window (prior 2 pairs for correction detection) [pairs 2, 3]",
+    "raw_user": "How does an agent know what to do in its traversal of the tree?"
+  }
+}
