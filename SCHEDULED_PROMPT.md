@@ -34,6 +34,14 @@ This scans the inbox and staging area and writes `state/next-action.json`. Read 
 - Move the proposal file to `state/staging/done/`
 - Commit the wiki change with message: `triage: apply [type] to [section] (session [session_id] seq [seq])`
 
+**If `type: "apply"`** — run the apply prompt:
+
+```bash
+bun run apply-prompt
+```
+
+This prints a structured prompt with the proposal to apply, the current wiki page, and the original conversation pair for context. Follow the instructions: update the wiki page, include the citation, delete the proposal file, then run `bun run eval` again.
+
 **If `type: "classify"`** — run the classifier:
 
 ```bash

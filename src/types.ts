@@ -27,6 +27,13 @@ export type NextAction =
       rolling_window: MessagePair[]; // prior N pairs for correction/ratification context
     }
   | {
+      type: "apply";
+      proposal_path: string;
+      proposal: WriteProposal;
+      current_page_path: string | null; // null if page doesn't exist yet
+      session_path: string; // path to done/ session file for provenance lookback
+    }
+  | {
       type: "review-staging";
       proposal_count: number;
       staging_path: string;

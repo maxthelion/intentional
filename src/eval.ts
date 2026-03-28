@@ -11,11 +11,11 @@
  *   └── [always]                             → idle
  */
 
-import { writeFile, mkdir, readdir, rename } from "fs/promises";
+import { writeFile, mkdir, readdir, rename, readFile } from "fs/promises";
 import { join } from "path";
 import { findPendingSessions, getRollingWindow } from "./inbox";
 import { countStagingProposals } from "./staging";
-import type { NextAction } from "./types";
+import type { NextAction, WriteProposal } from "./types";
 
 const INBOX_ROOT = join(process.cwd(), ".pi", "inbox");
 const INBOX_PENDING = join(INBOX_ROOT, "pending");
@@ -48,6 +48,61 @@ async function syncInbox(): Promise<void> {
 }
 
 const NEXT_ACTION_PATH = join(process.cwd(), "state", "next-action.json");
+const STAGING_DRY_RUN = join(process.cwd(), "state", "staging", "dry-run");
+const WIKI_PAGES = join(process.cwd(), "wiki", "pages");
+
+/**
+ * Find the oldest unapplied proposal in dry-run/.
+ * Returns null if none exist or all are discards.
+ */
+async function findNextProposal(): Promise<{ path: string; proposal: WriteProposal } | null> {
+  let files: string[];
+  try {
+    files = await readdir(STAGING_DRY_RUN);
+  } catch {
+    return null;
+  }
+
+  const proposals = files.filter((f) => f.endsWith(".json")).sort();
+  for (const file of proposals) {
+    const filePath = join(STAGING_DRY_RUN, file);
+    try {
+      const proposal = JSON.parse(await readFile(filePath, "utf-8")) as WriteProposal;
+      if (proposal.type === "discard") continue; // skip discards
+      return { path: filePath, proposal };
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
+/**
+ * Find the session archive file for a given session_id.
+ */
+async function findSessionArchive(session_id: string): Promise<string | null> {
+  try {
+    const files = await readdir(INBOX_DONE);
+    const match = files.find((f) => f.includes(session_id) && f.endsWith(".jsonl"));
+    return match ? join(INBOX_DONE, match) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Find the wiki page path for a given section slug.
+ * Returns null if the page doesn't exist yet.
+ */
+async function findWikiPage(section: string): Promise<string | null> {
+  const pagePath = join(WIKI_PAGES, `${section}.md`);
+  try {
+    await readFile(pagePath, "utf-8");
+    return pagePath;
+  } catch {
+    return null;
+  }
+}
 
 async function evaluate(): Promise<NextAction> {
   // 1. Staging proposals awaiting review take priority
@@ -60,7 +115,21 @@ async function evaluate(): Promise<NextAction> {
     };
   }
 
-  // 2. Find oldest session with unprocessed pairs
+  // 2. Apply unapplied proposals before classifying new pairs
+  const next = await findNextProposal();
+  if (next) {
+    const currentPage = await findWikiPage(next.proposal.section);
+    const sessionArchive = await findSessionArchive(next.proposal.provenance.session_id);
+    return {
+      type: "apply",
+      proposal_path: next.path,
+      proposal: next.proposal,
+      current_page_path: currentPage,
+      session_path: sessionArchive ?? "",
+    };
+  }
+
+  // 3. Find oldest session with unprocessed pairs
   const sessions = await findPendingSessions();
   if (sessions.length === 0) {
     return { type: "idle", reason: "No unprocessed pairs in pending/" };
@@ -97,6 +166,10 @@ async function main() {
     console.log(`⏸  idle — ${action.reason}`);
   } else if (action.type === "review-staging") {
     console.log(`📋 review-staging — ${action.proposal_count} proposal(s) awaiting review`);
+  } else if (action.type === "apply") {
+    console.log(`✍️  apply — ${action.proposal.type} → ${action.proposal.section} (topic: ${action.proposal.topic})`);
+    console.log(`   proposal: ${action.proposal_path}`);
+    console.log(`   page: ${action.current_page_path ?? "(new page)"}`);
   } else {
     console.log(`🔍 classify — session ${action.session_id} seq=${action.seq}`);
     console.log(`   rolling window: ${action.rolling_window.length} prior pair(s)`);
