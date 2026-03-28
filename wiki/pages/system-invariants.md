@@ -13,3 +13,7 @@ The classification agent must produce only proposals written to `state/staging/d
 ## Invariant: Done Archive Is Immutable
 
 Files in `done/` must never be modified after they are moved there. Raw capture is lossless and immutable — only derived artifacts change. Any test that detects modification of a `done/` file indicates a pipeline violation. [[source:811302f6-0be7-435c-b844-910cc9a21b67/5]]
+
+## Invariant: Reprocessing Is Idempotent
+
+Reprocessing a session must skip pairs where `processed: true`. A full reset (moving sessions back to pending, clearing processed flags) must produce the same proposals as the initial run — proposals are derived output, not source of truth, and must be reproducible from the raw conversations alone. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]
