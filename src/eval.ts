@@ -15,7 +15,8 @@ import { writeFile, mkdir, readdir, rename, readFile } from "fs/promises";
 import { join } from "path";
 import { findPendingSessions, getRollingWindow } from "./inbox";
 import { countStagingProposals } from "./staging";
-import type { NextAction, WriteProposal } from "./types";
+import { GENERATION_ORDER } from "./generation-config";
+import type { NextAction, WriteProposal, SpecialistProgress } from "./types";
 
 const INBOX_ROOT = join(process.cwd(), ".pi", "inbox");
 const INBOX_PENDING = join(INBOX_ROOT, "pending");
@@ -50,6 +51,7 @@ async function syncInbox(): Promise<void> {
 const NEXT_ACTION_PATH = join(process.cwd(), "state", "next-action.json");
 const STAGING_DRY_RUN = join(process.cwd(), "state", "staging", "dry-run");
 const WIKI_PAGES = join(process.cwd(), "wiki", "pages");
+const SPECIALIST_PROGRESS_PATH = join(process.cwd(), "state", "specialist-progress.json");
 
 /**
  * Find the oldest unapplied proposal in dry-run/.
@@ -104,6 +106,26 @@ async function findWikiPage(section: string): Promise<string | null> {
   }
 }
 
+async function loadSpecialistProgress(): Promise<SpecialistProgress | null> {
+  try {
+    return JSON.parse(await readFile(SPECIALIST_PROGRESS_PATH, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
+async function findNextSpecialistLevel(progress: SpecialistProgress): Promise<NextAction | null> {
+  const completed = new Set(progress.completed);
+  const next = GENERATION_ORDER.find((l) => !completed.has(l.category));
+  if (!next) return null;
+  return {
+    type: "specialist",
+    category: next.category,
+    role: next.role,
+    context_categories: next.contextFrom,
+  };
+}
+
 async function evaluate(): Promise<NextAction> {
   // 1. Staging proposals awaiting review take priority
   const stagingCount = await countStagingProposals();
@@ -115,7 +137,7 @@ async function evaluate(): Promise<NextAction> {
     };
   }
 
-  // 2. Apply unapplied proposals before classifying new pairs
+  // 2. Apply unapplied proposals (before classifying or running next specialist)
   const next = await findNextProposal();
   if (next) {
     const currentPage = await findWikiPage(next.proposal.section);
@@ -129,7 +151,16 @@ async function evaluate(): Promise<NextAction> {
     };
   }
 
-  // 3. Find oldest session with unprocessed pairs
+  // 3. Run next specialist level if in specialist mode
+  const progress = await loadSpecialistProgress();
+  if (progress?.mode === "specialist") {
+    const specialistAction = await findNextSpecialistLevel(progress);
+    if (specialistAction) return specialistAction;
+    // All levels done — exit specialist mode
+    await writeFile(SPECIALIST_PROGRESS_PATH, JSON.stringify({ ...progress, mode: null }, null, 2));
+  }
+
+  // 4. Find oldest session with unprocessed pairs
   const sessions = await findPendingSessions();
   if (sessions.length === 0) {
     return { type: "idle", reason: "No unprocessed pairs in pending/" };
@@ -170,6 +201,9 @@ async function main() {
     console.log(`✍️  apply — ${action.proposal.type} → ${action.proposal.section} (topic: ${action.proposal.topic})`);
     console.log(`   proposal: ${action.proposal_path}`);
     console.log(`   page: ${action.current_page_path ?? "(new page)"}`);
+  } else if (action.type === "specialist") {
+    console.log(`🎭 specialist — ${action.role} (${action.category})`);
+    console.log(`   context from: ${action.context_categories.join(", ") || "none"}`);
   } else {
     console.log(`🔍 classify — session ${action.session_id} seq=${action.seq}`);
     console.log(`   rolling window: ${action.rolling_window.length} prior pair(s)`);

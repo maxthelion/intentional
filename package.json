@@ -10,7 +10,9 @@
     "reset-session": "bun src/reset-session.ts",
     "reset-wiki": "bun src/reset-wiki.ts",
     "specialist-prompt": "bun src/specialist-prompt.ts",
-    "apply-prompt": "bun src/apply-prompt.ts"
+    "apply-prompt": "bun src/apply-prompt.ts",
+    "specialist-complete": "bun src/specialist-complete.ts",
+    "start-specialist-mode": "bun src/start-specialist-mode.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"

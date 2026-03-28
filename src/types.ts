@@ -16,6 +16,12 @@ export interface Session {
   pairs: MessagePair[];
 }
 
+// Specialist generation progress
+export interface SpecialistProgress {
+  completed: string[]; // categories completed in order
+  mode: "specialist" | "triage" | null; // current pipeline mode
+}
+
 // Output of the deterministic tree evaluator
 export type NextAction =
   | {
@@ -32,6 +38,12 @@ export type NextAction =
       proposal: WriteProposal;
       current_page_path: string | null; // null if page doesn't exist yet
       session_path: string; // path to done/ session file for provenance lookback
+    }
+  | {
+      type: "specialist";
+      category: string;
+      role: string;
+      context_categories: string[]; // prior levels to load as context
     }
   | {
       type: "review-staging";

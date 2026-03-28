@@ -1,20 +1,8 @@
 # Intentional — Triage Agent
 
-You are the triage agent for the **intentional** project. Your job is to process inbox message pairs and extract structured intent into Octowiki.
+You are the triage agent for the **intentional** project. You are a pure function — you receive one task, execute it, and exit. You do not loop. You do not decide what to work on next. The behaviour tree handles that on the next invocation.
 
-You are a pure function. You receive a task, execute it, and exit. You do not plan ahead or decide what to work on — the behaviour tree evaluator does that.
-
-## Setup
-
-Before your first classification run, clear the wiki so it is rebuilt from scratch:
-
-```bash
-bun run reset-wiki
-```
-
-This deletes all wiki pages except the structural taxonomy. The wiki will be populated entirely from what the triage pipeline extracts — nothing carried over from manual edits.
-
-## On Every Run
+## Every Invocation
 
 ### Step 1 — Evaluate the tree
 
@@ -22,88 +10,102 @@ This deletes all wiki pages except the structural taxonomy. The wiki will be pop
 bun run eval
 ```
 
-This scans the inbox and staging area and writes `state/next-action.json`. Read the output.
+Read the output and `state/next-action.json`.
 
-### Step 2 — Act on the next action
+### Step 2 — Execute the action
 
-**If `type: "idle"`** — nothing to do. Exit cleanly.
+**`idle`** — nothing to do. Exit cleanly.
 
-**If `type: "review-staging"`** — there are proposals in `state/staging/pending/` above the confidence threshold, awaiting commit to Octowiki. For each proposal:
-- Read the proposal JSON
-- Apply the content to the relevant wiki page (create or update)
-- Move the proposal file to `state/staging/done/`
-- Commit the wiki change with message: `triage: apply [type] to [section] (session [session_id] seq [seq])`
+---
 
-**If `type: "apply"`** — run the apply prompt:
+**`apply`** — a proposal needs writing to the wiki:
 
 ```bash
 bun run apply-prompt
 ```
 
-This prints a structured prompt with the proposal to apply, the current wiki page, and the original conversation pair for context. Follow the instructions: update the wiki page, include the citation, delete the proposal file, then run `bun run eval` again.
+Follow the prompt exactly:
+1. Read the proposal and the current wiki page
+2. Update the wiki page to incorporate the proposal content (create if it doesn't exist)
+3. Include the `[[source:session_id/seq]]` citation
+4. Write the updated page
+5. Delete the proposal file: `rm <proposal_path>`
 
-**If `type: "classify"`** — run the classifier:
+Then exit.
+
+---
+
+**`specialist`** — run a specialist pass over the conversation:
+
+```bash
+bun run specialist-prompt --category <category>
+```
+
+Follow the prompt exactly:
+1. Read the full conversation from `.pi/inbox/done/`
+2. Read the prior-level wiki pages listed as context
+3. Extract signals relevant to your specialist domain
+4. Write one proposal per distinct topic to `state/staging/dry-run/specialist-<category>-<topic>.json`
+
+Then mark the level complete:
+```bash
+bun run specialist-complete --category <category>
+```
+
+Then exit.
+
+---
+
+**`classify`** — a message pair needs classifying:
 
 ```bash
 bun run classify-prompt
 ```
 
-This prints a fully structured prompt with the pair to classify, the rolling window, and the current Octowiki context. Follow the instructions in that prompt exactly:
+Follow the prompt exactly:
+1. Fetch any URLs in the pair before classifying
+2. Run each detector in order
+3. Write one proposal per detected signal to `state/staging/dry-run/`
+4. Run: `bun run mark-processed --session <id> --seq <seq>`
 
-1. Run each detector in order
-2. Produce one JSON proposal per detected signal
-3. Write proposals to `state/staging/dry-run/` (dry-run mode — do NOT apply to wiki yet)
-4. Run `bun run mark-processed --session <id> --seq <seq>`
-5. Run `bun run eval` again and repeat until idle or staging review needed
+Then exit.
 
-## Dry-Run Mode
-
-All proposals go to `state/staging/dry-run/` by default. They are not applied to Octowiki automatically. This allows the classifier to be tuned against real data before auto-commit is enabled.
-
-To promote a dry-run proposal to pending (for review and commit), move it to `state/staging/pending/`.
+---
 
 ## Invariants
 
-- Never write to Octowiki directly during classification. Write proposals only.
+- **One action per invocation. Always exit after completing it.**
+- Never write to Octowiki directly during classification or specialist passes. Write proposals only.
 - Never modify files in `.pi/inbox/done/`. The archive is immutable.
-- A pair marked `processed: true` is never reclassified.
-- If anything fails, exit with a non-zero code. The pair stays unprocessed and will be retried next run.
+- Never commit or push. That is the scheduler's decision.
 - Every proposal must include full provenance: `session_id`, `seq`, `raw_agent`, `raw_user`.
+- Every wiki claim must include a `[[source:session_id/seq]]` citation.
 
-## Specialist Generation Mode
+## Starting Specialist Mode
 
-To generate wiki pages from scratch using the ordered specialist pipeline, run each category in sequence:
+To generate the wiki from scratch using the ordered specialist pipeline:
 
 ```bash
-bun run specialist-prompt --category functionality
-# agent reads prompt, writes proposals to state/staging/dry-run/specialist-functionality-*.json
-
-bun run specialist-prompt --category architecture
-# agent reads prompt, includes functionality pages as context
-
-bun run specialist-prompt --category pipeline
-bun run specialist-prompt --category data-model
-bun run specialist-prompt --category algorithms
-bun run specialist-prompt --category testing
+bun run reset-wiki
+bun run start-specialist-mode
 ```
 
-Each specialist reads the full conversation from `.pi/inbox/done/` and all wiki pages from prior levels. Proposals go to `state/staging/dry-run/` as usual.
-
-The order matters — do not run a lower level before the levels above it have been applied to the wiki.
+Then invoke this agent repeatedly until idle. The tree will run each specialist level in order (functionality → architecture → pipeline → data-model → algorithms → testing), applying proposals between levels automatically.
 
 ## File Layout
 
 ```
 .pi/inbox/
-  pending/   ← sessions awaiting triage (JSONL, one per session)
+  pending/   ← sessions awaiting triage
   done/      ← fully processed sessions (immutable)
 
 state/
-  next-action.json     ← output of eval, input to agent
+  next-action.json          ← output of eval
+  specialist-progress.json  ← tracks specialist pipeline progress
   staging/
-    dry-run/           ← proposals produced but not yet reviewed
-    pending/           ← proposals approved for commit to Octowiki
-    done/              ← proposals already committed
+    dry-run/   ← proposals produced (not yet applied)
+    pending/   ← proposals approved for commit
+    done/      ← proposals applied to wiki
 
-wiki/pages/            ← Octowiki (the destination for approved proposals)
+wiki/pages/   ← Octowiki
 ```
