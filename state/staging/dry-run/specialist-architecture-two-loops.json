@@ -1,0 +1,14 @@
+{
+  "type": "clarification",
+  "category": "architecture",
+  "topic": "two-feedback-loops",
+  "page": "system-loops",
+  "content": "## Two Feedback Loops\n\nThe system has two distinct feedback loops. The first loop is conversation → wiki: raw conversational signal is captured, classified, resolved, and applied to the wiki. The second loop is wiki → code: invariants in the wiki are compared against the codebase to detect work (\"specified but not built\") and missing tests (\"built but not tested\"). These are separate loops with different cadences and different automation levels. [[source:811302f6-0be7-435c-b844-910cc9a21b67/29]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 29,
+    "raw_agent": "This is the second loop in the system — the first loop is conversation → wiki, this is wiki → code.",
+    "raw_user": "I'm thinking about what happens when a new invariant enters the spec. It will be implemented or not. There is potentially a delta that is the work that needs doing."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "architecture",
+  "topic": "session-and-pair-granularity",
+  "page": "component-boundaries",
+  "content": "## Two-Granularity Processing\n\nProcessing happens at two granularities with different mechanisms. At the session level, the `pending/` to `done/` directory move indicates whether a session has been fully consumed. At the pair level within a session, a `processed` flag on each JSONL line handles retry and idempotency. Both mechanisms serve different purposes at different granularities. [[source:811302f6-0be7-435c-b844-910cc9a21b67/10]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 10,
+    "raw_agent": "The pending/done question resolves cleanly here. A session file lives in pending/ while any pairs in it are unprocessed; it moves to done/ when all pairs have been processed. The pair-level processed flag handles retry/idempotency within a session; the directory handles whether the session has been fully consumed. Both mechanisms, different granularities.",
+    "raw_user": "The behaviour tree is the most architecturally interesting part..."
+  }
+}

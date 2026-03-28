@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "architecture",
+  "topic": "provenance-traceability",
+  "page": "provenance-architecture",
+  "content": "## Provenance Traceability\n\nEvery wiki claim must trace back to a conversation pair via `[[source:session_id/seq]]` citations. The provenance chain runs: raw conversation → proposal (with session_id, seq, raw_agent, raw_user) → wiki page (with source citation). This chain must never be broken — manual edits bypass the loop and lose the provenance trail. The provenance is what makes the wiki auditable and the pipeline trustworthy. [[source:811302f6-0be7-435c-b844-910cc9a21b67/28]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 28,
+    "raw_agent": "If we keep manually editing the wiki we're bypassing the loop and losing the provenance trail.",
+    "raw_user": "Let's stop updating the wiki ourselves."
+  }
+}
