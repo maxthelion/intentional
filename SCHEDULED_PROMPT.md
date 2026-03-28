@@ -62,6 +62,27 @@ To promote a dry-run proposal to pending (for review and commit), move it to `st
 - If anything fails, exit with a non-zero code. The pair stays unprocessed and will be retried next run.
 - Every proposal must include full provenance: `session_id`, `seq`, `raw_agent`, `raw_user`.
 
+## Specialist Generation Mode
+
+To generate wiki pages from scratch using the ordered specialist pipeline, run each category in sequence:
+
+```bash
+bun run specialist-prompt --category functionality
+# agent reads prompt, writes proposals to state/staging/dry-run/specialist-functionality-*.json
+
+bun run specialist-prompt --category architecture
+# agent reads prompt, includes functionality pages as context
+
+bun run specialist-prompt --category pipeline
+bun run specialist-prompt --category data-model
+bun run specialist-prompt --category algorithms
+bun run specialist-prompt --category testing
+```
+
+Each specialist reads the full conversation from `.pi/inbox/done/` and all wiki pages from prior levels. Proposals go to `state/staging/dry-run/` as usual.
+
+The order matters — do not run a lower level before the levels above it have been applied to the wiki.
+
 ## File Layout
 
 ```
