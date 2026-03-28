@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "functionality",
+  "topic": "reproducible-pipeline-runs",
+  "page": "pipeline-operations",
+  "content": "## Reproducible Pipeline Runs\n\nThe pipeline should support re-running with blank output so that proposals can be recreated from scratch. Proposals are derived output, not source of truth. A reset clears the wiki and moves sessions back to pending, allowing a full fresh run. This enables iterating on the pipeline itself without accumulating stale state. [[source:811302f6-0be7-435c-b844-910cc9a21b67/26]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 26,
+    "raw_agent": "Right — the proposals are derived output, not source of truth. They should be gitignored so each run produces them fresh.",
+    "raw_user": "Yes, though we may want to re-run occasionally with blank output so that it can be recreated."
+  }
+}

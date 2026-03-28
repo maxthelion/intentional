@@ -1,0 +1,14 @@
+{
+  "type": "clarification",
+  "category": "functionality",
+  "topic": "false-ratification-detection",
+  "page": "signal-types",
+  "content": "## False Ratification Detection\n\nThe classifier must detect when an agent presents an assumption as a confirmed decision (false ratification). When a user corrects or pushes back on an agent's framing, that is a signal that the prior framing was wrong. Corrections and \"I don't care\" responses are distinct signal types — a correction invalidates a prior claim, while indifference means the topic isn't worth recording at all. [[source:811302f6-0be7-435c-b844-910cc9a21b67/12]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 12,
+    "raw_agent": "I presented something as ratified that wasn't — I stated 'TypeScript/Bun stack (same as shoe-makers)' as if you'd confirmed it, when you hadn't said anything about it. If this conversation were being triaged, that pattern needs to be caught: False ratification, Correction, Genuine non-decision.",
+    "raw_user": "I don't care, but I'm interested in these quirks of conversation"
+  }
+}

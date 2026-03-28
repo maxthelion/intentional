@@ -1,0 +1,14 @@
+{
+  "type": "clarification",
+  "category": "functionality",
+  "topic": "ratification-signal-type",
+  "page": "signal-types",
+  "content": "## Ratification as a Signal Type\n\nWhen a user says \"yes\" in response to an agent's proposal, the user turn has zero information content in isolation. The agent turn is where the substance lives — the user turn is purely a confirmation signal. Provenance for ratifications must capture the agent's statement as the meaningful content, not the bare \"yes\". This is structurally different from decision detection. [[source:811302f6-0be7-435c-b844-910cc9a21b67/11]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 11,
+    "raw_agent": "The 'yes' case is the clearest example of why ratification is structurally different from everything else in the tree. The user turn has zero information content in isolation — the agent turn is where the substance lives.",
+    "raw_user": "Yes, the shoemakers project was more for reference about agents as pure functions operating in a behaviour tree. We don't need to copy, but it had quite a good approach. Pairs question is interesting, a usecase is when the agent asks me something, and I just say 'yes'. My answer has no information except to confirm the information the agent said"
+  }
+}
