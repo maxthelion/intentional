@@ -1,3 +1,7 @@
+## Working Conventions
+
+- **If you say something is ready, committed, or pushed — it must already be committed and pushed at that point.** Do not say it is ready and then commit afterwards in response to a failure. Check `git status` before declaring done.
+
 <!-- octowiki -->
 ## OctoWiki
 
