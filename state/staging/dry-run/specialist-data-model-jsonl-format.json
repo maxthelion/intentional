@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "data-model",
+  "topic": "jsonl-session-format",
+  "page": "inbox-data-format",
+  "content": "## JSONL Session Format\n\nSession files use JSONL (JSON Lines) format — each message is a separate JSON object on its own line. This means appending is O(1) and a processor can stream line-by-line without loading the whole file. One file per conversation session, not per message, because the conversation is the atomic unit of truth. Splitting into per-message files would destroy the context that makes triage possible. [[source:811302f6-0be7-435c-b844-910cc9a21b67/5]]",
+  "confidence": 0.9,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 5,
+    "raw_agent": "One file per conversation/session (not per message) — because the conversation is the atomic unit of truth. Splitting it into per-message files would destroy the context that makes triage possible.",
+    "raw_user": "Conversations are the source of truth for intent. Everything else is derived."
+  }
+}

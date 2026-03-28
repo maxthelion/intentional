@@ -1,0 +1,14 @@
+{
+  "type": "decision",
+  "category": "data-model",
+  "topic": "state-directory-structure",
+  "page": "state-layout",
+  "content": "## State Directory Structure\n\nThe state directory holds all ephemeral working files: `state/next-action.json` (eval output describing the next task), `state/specialist-progress.json` (tracks specialist pipeline progress), and `state/staging/` with subdirectories `dry-run/` (proposals committed on agent branch for review), `pending/` (proposals approved for auto-commit), and `done/` (proposals applied to wiki). The `dry-run/` directory is not gitignored — proposals there are committed for review. [[source:811302f6-0be7-435c-b844-910cc9a21b67/18]]",
+  "confidence": 0.85,
+  "provenance": {
+    "session_id": "811302f6-0be7-435c-b844-910cc9a21b67",
+    "seq": 18,
+    "raw_agent": "staging/ — write proposals awaiting commit. state/next-action.json — which pair, which session, loaded context paths.",
+    "raw_user": "I think we should build some of the ground work for running the behaviour tree as a dry run."
+  }
+}

@@ -2,7 +2,8 @@
   "completed": [
     "functionality",
     "architecture",
-    "pipeline"
+    "pipeline",
+    "data-model"
   ],
   "mode": "specialist"
 }
