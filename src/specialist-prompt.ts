@@ -91,11 +91,9 @@ ${level.persona}
 
 ${level.focus}
 
-## What You Do NOT Write About
+## Boundary
 
 ${level.exclude}
-
-If you find yourself writing about something in the exclusion list, stop and either discard it or write it as an open question for the appropriate specialist.
 
 ## General Constraints
 
